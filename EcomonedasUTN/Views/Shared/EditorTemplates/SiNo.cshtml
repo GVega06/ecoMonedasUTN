@@ -1,0 +1,16 @@
+﻿@model Nullable<bool>
+
+@{
+    bool var = true;
+    if (Model != null)
+    {
+        var = (bool)Model;
+    }
+
+    @Html.RadioButton("", "true", var)
+    @Html.Label("", "Sí")
+    <br />
+        @Html.RadioButton("", "false", !var)
+        @Html.Label("", "No")
+}
+

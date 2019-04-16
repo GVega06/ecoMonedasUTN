@@ -1,0 +1,18 @@
+﻿@model Nullable<bool>
+
+@{
+    bool var = true;
+    if (Model != null)
+    {
+        var = (bool)Model;
+    }
+
+    if (var)
+    {
+        <text>Sí</text>
+    }
+    else
+    {
+        <text>No</text>
+    }
+}
