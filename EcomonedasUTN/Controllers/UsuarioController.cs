@@ -145,7 +145,7 @@ namespace EcomonedasUTN.Controllers
             return View(usuario);
         }
 
-        //KeylorSk8
+        //Keylor
         // GET: Usuario/Delete/5
         public ActionResult Delete(string id)
         {
