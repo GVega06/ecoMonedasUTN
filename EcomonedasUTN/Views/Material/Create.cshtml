@@ -33,8 +33,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.color, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">        
-                <input type="color" id="color" name="txtcolor">        
                 @Html.ValidationMessageFor(model => model.color, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.color, (SelectList)ViewBag.Colores, "--Seleccione un color--", htmlAttributes: new { @class = "form-control"})
+                <            
             </div>
         </div>
 

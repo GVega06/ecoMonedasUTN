@@ -49,8 +49,18 @@ namespace EcomonedasUTN.Controllers
         // GET: Material/Create
         public ActionResult Create()
         {
-            ViewBag.Color = cargarColorDropDownList();
+            ViewBag.Colores = llenarColores();
             return View();
+        }
+
+        public SelectList llenarColores()
+        {
+            var lista = new List<object>();
+            lista.Add(Color.Blue);
+            lista.Add(Color.Yellow);
+
+            return new SelectList(lista);
+
         }
 
         // POST: Material/Create
@@ -61,6 +71,7 @@ namespace EcomonedasUTN.Controllers
         public ActionResult Create([Bind(Include = "id,nombre,precio,color,imagen")] Material material)
         {
             HttpPostedFileBase FileBase = Request.Files[0];
+
             WebImage image = new WebImage(FileBase.InputStream);
 
             material.imagen = image.GetBytes();
@@ -71,7 +82,6 @@ namespace EcomonedasUTN.Controllers
                 TempData["mensaje"] = "Material reciclable guardado con éxito";
                 return RedirectToAction("Index");
             }
-            ViewBag.Color = cargarColorDropDownList();
             TempData["mensaje"] = "No se pudo guardar el material reciclable";
             return View(material);
         }
@@ -177,13 +187,6 @@ namespace EcomonedasUTN.Controllers
             image.Save(memory, System.Drawing.Imaging.ImageFormat.Jpeg);
             memory.Position = 0;
             return File(memory, "image/jpg");
-        }
-
-        private SelectList cargarColorDropDownList(object selected = null)
-        {
-            var listaColor = new List<Color>();
-            listaColor.Add(Color.Beige);
-            return new SelectList(listaColor, selected);
         }
     }
 }
