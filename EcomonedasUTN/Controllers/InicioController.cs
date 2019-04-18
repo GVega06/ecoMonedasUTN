@@ -11,6 +11,7 @@ namespace EcomonedasUTN.Controllers
         // GET: Inicio
         public ActionResult Index()
         {
+            ViewBag.User = ViewBag.User;
             return View();
         }
     }

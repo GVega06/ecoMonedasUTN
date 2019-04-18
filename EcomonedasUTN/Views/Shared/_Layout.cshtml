@@ -16,25 +16,32 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-   
-
-
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @Html.ActionLink("Inicio","Index","Inicio",new { },htmlAttributes: new { @class = "nav-link"})
-                @Html.ActionLink("Perfil", "Details", "Usuario", new { }, htmlAttributes: new { @class = "nav-link" })
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Mantenimientos
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Centros de Acopio", "Index", "Centro", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                        @Html.ActionLink("Centros de Acopio", "Index", "Centro", new {  }, htmlAttributes: new { @class = "dropdown-item" })
                         @Html.ActionLink("Cupones", "Index", "Cupon", new { }, htmlAttributes: new { @class = "dropdown-item" })
                         @Html.ActionLink("Materiales", "Index", "Material", new { }, htmlAttributes: new { @class = "dropdown-item" })
                     </div>
                 </li>
             </ul>
+            @if ()
+            {
+                <ul class="navbar-nav ml-auto" style="display:inline">
+                    <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Cuenta", "Details", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline" })
+                </ul>
+            }
+            else
+            {
+                <ul class="navbar-nav ml-auto" style="display:inline">
+                    <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Inicio Sesión", "InicioSesion", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline" })
+                </ul>
+            }
         </div>
     </nav>
     @if (ViewBag.Mensaje != "" && ViewBag.Mensaje != null)
