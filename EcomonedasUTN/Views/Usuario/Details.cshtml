@@ -5,18 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 style="margin-top:50px">Detalle</h2>
 
 <div>
-    <h4>Usuario</h4>
+    <h4>Información de Usuario</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Rol.descripcion)
+            @Html.DisplayNameFor(model => model.email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Rol.descripcion)
+            @ViewData["email"]            
         </dd>
 
         <dt>
@@ -24,6 +25,7 @@
         </dt>
 
         <dd>
+           @ViewData["nombre"] 
             @Html.DisplayFor(model => model.nombre)
         </dd>
 
@@ -32,15 +34,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.clave)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.estado)
+            @ViewData["clave"]
+            
         </dd>
 
         <dt>
@@ -48,7 +43,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.telefono)
+            @ViewData["telefono"]
+            
         </dd>
 
         <dt>
@@ -56,12 +52,17 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.direccion)
+            @ViewData["direccion"]
+            
         </dd>
-
+   
     </dl>
+        
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.email }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = @ViewData["email"] }, new { @class = "btn btn-outline-success" }) |
+    @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-outline-success" })
 </p>
+
+
+

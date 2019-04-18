@@ -8,7 +8,7 @@ namespace EcomonedasUTN.Models
     public partial class ecoMonedaModel : DbContext
     {
         public ecoMonedaModel()
-            : base("name=ecoMonedaModel1")
+            : base("name=ecoMonedaModel")
         {
         }
 

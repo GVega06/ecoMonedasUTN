@@ -18,6 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @Html.ActionLink("Inicio","Index","Inicio",new { },htmlAttributes: new { @class = "nav-link"})
+                @Html.ActionLink("Perfil", "Details", "Usuario", new { }, htmlAttributes: new { @class = "nav-link" })
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Mantenimientos
@@ -44,7 +45,8 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Keylor Martínez Rodríguez @ViewBag.Mensaje</p>
+            <p>&copy; @DateTime.Now.Year - Keylor Martínez Rodríguez
+            <br>Gloriana Vega Obregón @ViewBag.Mensaje</p>
         </footer>
     </div>
 </body>

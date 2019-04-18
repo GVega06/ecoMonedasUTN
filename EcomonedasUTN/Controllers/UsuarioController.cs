@@ -36,18 +36,10 @@ namespace EcomonedasUTN.Controllers
         }
 
         // GET: Usuario/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
+            LoadSessionObject();
+            return View();
         }
 
         // GET: Usuario/Create
@@ -110,29 +102,30 @@ namespace EcomonedasUTN.Controllers
 
         // GET: Usuario/Edit/5
         public ActionResult Edit(string id)
-        {
+        {          
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["mensaje"] = "Usuario no coinciden";
+                return RedirectToAction("Index");
             }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
+            Usuario us = db.Usuario.Find(id);
+            ViewData["email"] = us.email;
+            if (us == null)
             {
-                return HttpNotFound();
+                TempData["mensaje"] = "Usuario no existe";
+                return RedirectToAction("Index");
             }
-            ViewBag.Provincia = cargarProvinciasDropDownList();
-            ViewBag.idRol = new SelectList(db.Rol, "idRol", "descripcion", usuario.idRol);
-            return View(usuario);
+            //LoadSessionObject();
+            ViewBag.Provincia = cargarProvinciasDropDownList();         
+            return View(us);
         }
 
-        // POST: Usuario/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "email,nombre,clave,telefono,direccion")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "nombre,clave,telefono,direccion")] Usuario usuario)
         {
-
+            //LoadSessionObject();
+            ViewData["email"] = usuario.email;
             usuario.idRol = usuario.idRol;
             usuario.estado = usuario.estado;
             if (ModelState.IsValid)
@@ -141,11 +134,8 @@ namespace EcomonedasUTN.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.idRol = new SelectList(db.Rol, "idRol", "descripcion", usuario.idRol);
             return View(usuario);
         }
-
-        //Keylor
         // GET: Usuario/Delete/5
         public ActionResult Delete(string id)
         {
@@ -194,6 +184,7 @@ namespace EcomonedasUTN.Controllers
             return new SelectList(listaProvincia, selected);
         }
 
+
         public bool consulta(string id)
         {
             Models.Usuario usuario = db.Usuario.Find(id);
@@ -224,8 +215,6 @@ namespace EcomonedasUTN.Controllers
         public ActionResult InicioSesion(string email, string clave)
         {
 
-
-            
                 Models.Usuario user = db.Usuario.Find(email);
 
     
@@ -250,14 +239,7 @@ namespace EcomonedasUTN.Controllers
 
 
             TempData["mensajeUser"] = "Usuario o contraseña incorrecta";
-                    return View();
-
-               
-
-
-           
-
-            
+                    return View(user);         
         }
 
 
@@ -269,8 +251,9 @@ namespace EcomonedasUTN.Controllers
             ViewData["clave"] = System.Web.HttpContext.Current.Session["clave"] as String;
             ViewData["idRol"] = System.Web.HttpContext.Current.Session["idRol"] as String;
             ViewData["estado"] = System.Web.HttpContext.Current.Session["estado"] as String;
-            ViewData["telefono"] = System.Web.HttpContext.Current.Session["telefono"] as String;
+            ViewData["telefono"] = System.Web.HttpContext.Current.Session["telefono"];
             ViewData["direccion"] = System.Web.HttpContext.Current.Session["direccion"] as String;
         }
+      
     }
 }

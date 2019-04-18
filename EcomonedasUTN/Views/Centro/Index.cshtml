@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<EcomonedasUTN.Models.Centro>
 
 @{
-    ViewBag.Title = "Centro";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -28,28 +28,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-   
-        <td>
-            @Html.DisplayFor(modelItem => item.provincia)
-            @Html.DisplayFor(modelItem => item.direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.id }, new { @class = "btn btn-outline-success" }) |
-            @Html.ActionLink("Detalle", "Details", new { id=item.id }, new { @class = "btn btn-outline-success" }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.id }, new { @class = "btn btn-outline-success" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.provincia)
+                @Html.DisplayFor(modelItem => item.direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "btn btn-outline-success" }) |
+                @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "btn btn-outline-success" }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "btn btn-outline-success" })
+            </td>
+        </tr>
+    }
 
 </table>

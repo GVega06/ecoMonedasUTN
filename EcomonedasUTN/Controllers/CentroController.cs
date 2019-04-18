@@ -17,12 +17,12 @@ namespace EcomonedasUTN.Controllers
         // GET: Centro
         public ActionResult Index()
         {
-            var centro = db.Centro.Include(c => c.Usuario);
+           
             if (TempData.ContainsKey("mensaje"))
             {
                 ViewBag.Mensaje = TempData["mensaje"].ToString();
             }
-            return View(centro.ToList());
+            return View(db.Centro.ToList());
         }
 
         // GET: Centro/Details/5
