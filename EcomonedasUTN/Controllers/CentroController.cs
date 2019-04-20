@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EcomonedasUTN.Models;
+using System.Globalization;
 
 namespace EcomonedasUTN.Controllers
 {
@@ -17,7 +18,7 @@ namespace EcomonedasUTN.Controllers
         // GET: Centro
         public ActionResult Index()
         {
-           
+
             if (TempData.ContainsKey("mensaje"))
             {
                 ViewBag.Mensaje = TempData["mensaje"].ToString();
@@ -42,7 +43,7 @@ namespace EcomonedasUTN.Controllers
                 TempData["mensaje"] = "No existe el centro de acopio";
                 return RedirectToAction("Index");
             }
-          
+
             return View(centro);
         }
 
@@ -92,7 +93,7 @@ namespace EcomonedasUTN.Controllers
                 TempData["mensaje"] = "No existe el centro de acopio";
                 return RedirectToAction("Index");
             }
-          
+
             ViewBag.Provincia = cargarProvinciasDropDownList();
             ViewBag.idUsuario = new SelectList(db.Usuario, "email", "nombre", centro.idUsuario);
             return View(centro);
@@ -171,5 +172,7 @@ namespace EcomonedasUTN.Controllers
             }
             base.Dispose(disposing);
         }
+
+      
     }
 }
