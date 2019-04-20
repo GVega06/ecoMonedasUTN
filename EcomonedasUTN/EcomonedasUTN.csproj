@@ -129,6 +129,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Imagenes\1.jpg" />
+    <Content Include="Content\Imagenes\2.jpg" />
+    <Content Include="Content\Imagenes\3.jpg" />
+    <Content Include="Content\Imagenes\Bosque.jpg" />
+    <Content Include="Content\Imagenes\playa.jpg" />
+    <Content Include="Content\Imagenes\Volcan.jpeg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="ReportViewerWebForm.aspx" />

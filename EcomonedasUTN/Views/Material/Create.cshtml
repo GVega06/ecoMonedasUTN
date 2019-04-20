@@ -5,13 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Crear Material Reciclable</h2>
+
 
 @using (Html.BeginForm("Create", "Material", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="container">
+        <h2 style="margin-top:50px">Crear Material Reciclable</h2>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -50,8 +51,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Crear" class="btn btn-outline-success" />
-                @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-outline-success" })
+                <input type="submit" value="Crear" class="btn btn-info" />
+                @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-info" })
             </div>
         </div>
     </div>

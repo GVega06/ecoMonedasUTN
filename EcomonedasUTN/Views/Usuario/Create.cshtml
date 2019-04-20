@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Registrarse</h2>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Completa tus datos</h4>
+    <div style="width:50%;margin-left:auto;margin-right:auto">
+        <h2 style="margin-top:50px">Registrarse</h2>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6 style="margin-left:20px">Correo Electrónico</h6>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6 style="margin-left:20px">Nombre Completo</h6>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
@@ -32,25 +32,25 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.clave, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6 style="margin-left:20px">Contraseña</h6>
             <div class="col-md-10">
-                @Html.PasswordFor(model => model.clave, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.PasswordFor(model => model.clave, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
             <div class="form-group">
-                @Html.Label("Repetir Contraseña*", htmlAttributes: new { @class = "control-label col-md-2" })
+                <h6 style="margin-left:20px">Repetir Contraseña</h6>
                 <div class="col-md-10">
-                    @Html.Password("repetirClave")
+                    @Html.Password("repetirClave","",new { @class = "form-control"})
                     @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
                 </div>
             </div>
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6 style="margin-left:20px">Teléfono</h6>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Provincia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6 style="margin-left:20px">Provincia</h6>
             <div class="col-md-10">
                 @Html.DropDownList("provincia",
                (SelectList)ViewBag.Provincia,
@@ -70,7 +70,7 @@
        
 
         <div class="form-group">
-            @Html.LabelFor(model => model.direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6 style="margin-left:20px">Dirección</h6>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
@@ -79,7 +79,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Registrarse" class="btn btn-outline-success" />
+                <input type="submit" value="Registrarse" class="btn btn-info btn-block" />
          
                 @Html.ActionLink("¿Ya tienes cuenta?", "InicioSesion", "Usuario", new { }, htmlAttributes: new { @class = "nav-link" })
             </div>

@@ -11,7 +11,8 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    @using EcomonedasUTN.Models
+    <nav class="navbar navbar-expand-lg navbar-light bg-info" style="padding: 20px 40px 20px 40px;color: white !important">
         <a class="navbar-brand"><i class="fa fa-leaf"></i> Ecomonedas</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,28 +20,46 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                @Html.ActionLink("Inicio", "Index", "Inicio", new { }, htmlAttributes: new { @class = "nav-link" })
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Mantenimientos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Centros de Acopio", "Index", "Centro", new { }, htmlAttributes: new { @class = "dropdown-item" })
-                        @Html.ActionLink("Cupones", "Index", "Cupon", new { }, htmlAttributes: new { @class = "dropdown-item" })
-                        @Html.ActionLink("Materiales", "Index", "Material", new { }, htmlAttributes: new { @class = "dropdown-item" })
-                    </div>
-                </li>
+                @if (((Usuario)Session["session"]) != null)
+                {
+                    @Html.ActionLink("Inicio", "Index", "Inicio", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
+                    if (((Usuario)Session["session"]).idRol == 1)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white">
+                                Mantenimientos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Centros de Acopio", "Index", "Centro", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                                @Html.ActionLink("Cupones", "Index", "Cupon", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                                @Html.ActionLink("Materiales", "Index", "Material", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    }
+                }
             </ul>
-            @if (ViewBag.User != null && ViewBag.User != "")
+            @if (((Usuario)Session["session"]) != null)
             {
                 <ul class="navbar-nav ml-auto" style="display:inline">
-                    <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Cuenta", "Details", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline" })
+                    <li class="nav-item dropdown" style="display: inline">
+                        <i class="fa fa-user-circle" style="display:inline"></i><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;display:inline">
+                           @{
+                               var nombre = ((Usuario)Session["session"]).nombre;
+                           }
+                        @nombre
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("Administrar", "Details", "Usuario", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                            <div class="dropdown-divider"></div>
+                            @Html.ActionLink("Cerrar Sesión", "CerrarSession", "Usuario", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                        </div>
+                    </li>
                 </ul>
             }
             else
             {
                 <ul class="navbar-nav ml-auto" style="display:inline">
-                    <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Inicio Sesión", "InicioSesion", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline" })
+                    <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Inicio Sesión", "InicioSesion", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline;color:white" })
                 </ul>
             }
         </div>
@@ -55,12 +74,11 @@
         </div>
     }    
 
-    <div class="container body-content">
+    <div class="body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Keylor Martínez Rodríguez
-            <br>Gloriana Vega Obregón @ViewBag.Mensaje</p>
+        <footer style="text-align:center">
+            <p>&copy; @DateTime.Now.Year - Gloriana Vega Obregón - Keylor Martínez Rodríguez</p>
         </footer>
     </div>
 </body>
