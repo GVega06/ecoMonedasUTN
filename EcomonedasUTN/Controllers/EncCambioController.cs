@@ -22,7 +22,12 @@ namespace EcomonedasUTN.Controllers
 
             if (fechaAnterior != null && fechaActual != null)
             {
-                if (Convert.ToDateTime(fechaAnterior) > Convert.ToDateTime(fechaActual))
+                if (anterior.Year> actual.Year)
+                {
+                    TempData["mensajeReporte"] = "Seleccione una fecha válida";
+                }
+
+                if(anterior.Year == actual.Year && anterior.Month > actual.Month)
                 {
                     TempData["mensajeReporte"] = "Seleccione una fecha válida";
                 }
