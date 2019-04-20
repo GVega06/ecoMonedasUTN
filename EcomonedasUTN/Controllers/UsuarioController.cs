@@ -227,7 +227,7 @@ namespace EcomonedasUTN.Controllers
                 System.Web.HttpContext.Current.Session["estado"] = user.estado;
                 System.Web.HttpContext.Current.Session["telefono"] = user.telefono;
                 System.Web.HttpContext.Current.Session["direccion"] = user.direccion;
-                ViewBag.User = email;
+                ViewBag.User = System.Web.HttpContext.Current.Session["email"];
                 return RedirectToAction("Index", "Inicio");
 
             }

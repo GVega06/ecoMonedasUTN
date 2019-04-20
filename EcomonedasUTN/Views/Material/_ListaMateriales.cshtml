@@ -1,0 +1,15 @@
+﻿@model IEnumerable<EcomonedasUTN.Models.Material>
+
+@foreach (var item in Model)
+{
+    <div class="card mb-3" style="margin: 38px">
+        <h3 class="card-header" style="text-align: center;background:@item.color ">@item.nombre</h3>
+        <img width="300" src="@Url.Action("getImage", "Material", new {id=item.id})">
+        <div class="card-body" style="text-align:center">
+            <h4>@String.Format("₡{0:0}", item.precio)</h4>
+        </div>
+        <div class="card-body" style="text-align: center">
+            @Html.ActionLink("Detalles", "Details", "Material", new { id = item.id }, htmlAttributes: new { @class = "btn btn-info btn-block" })
+        </div>
+    </div>
+}

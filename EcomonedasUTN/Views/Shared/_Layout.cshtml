@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -7,6 +6,8 @@
     <link href="~/Content/font-awesome.css" rel="stylesheet" />    
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -18,19 +19,19 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                @Html.ActionLink("Inicio","Index","Inicio",new { },htmlAttributes: new { @class = "nav-link"})
+                @Html.ActionLink("Inicio", "Index", "Inicio", new { }, htmlAttributes: new { @class = "nav-link" })
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Mantenimientos
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Centros de Acopio", "Index", "Centro", new {  }, htmlAttributes: new { @class = "dropdown-item" })
+                        @Html.ActionLink("Centros de Acopio", "Index", "Centro", new { }, htmlAttributes: new { @class = "dropdown-item" })
                         @Html.ActionLink("Cupones", "Index", "Cupon", new { }, htmlAttributes: new { @class = "dropdown-item" })
                         @Html.ActionLink("Materiales", "Index", "Material", new { }, htmlAttributes: new { @class = "dropdown-item" })
                     </div>
                 </li>
             </ul>
-            @if ()
+            @if (ViewBag.User != null && ViewBag.User != "")
             {
                 <ul class="navbar-nav ml-auto" style="display:inline">
                     <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Cuenta", "Details", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline" })
@@ -53,8 +54,6 @@
             </button>
         </div>
     }
-
-
 
     <div class="container body-content">
         @RenderBody()

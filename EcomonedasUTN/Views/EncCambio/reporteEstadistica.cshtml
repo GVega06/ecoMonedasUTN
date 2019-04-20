@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "reporteEstadistica";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 style="margin-top:50px">Reporte Estadística de Eco Monedas por Centro de Acopio</h2>
+
+
+@using (Ajax.BeginForm("reporteEstadistica", "EncCambio", new AjaxOptions
+{
+    UpdateTargetId = "divFecha", // <-- ID de elemento DOM para actualiza
+    InsertionMode = InsertionMode.Replace, // <-- Reemplazar el contenido del elemento DOM
+    HttpMethod = "GET", // <-- Método HTTP
+}))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            Buscar:
+            @Html.TextBox("fechaAnterior", "", new { @class = "input-group-text", type = "date" })
+            desde
+            @Html.TextBox("fechaActual", "", new { @class = "input-group-text", type = "date" })
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Buscar" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<div id="divFecha">
+
+</div>
+
