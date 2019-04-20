@@ -173,6 +173,19 @@ namespace EcomonedasUTN.Controllers
             base.Dispose(disposing);
         }
 
-      
+        public ActionResult ListaCentros()
+        {
+            return View(db.Centro.ToList());
+        }
+
+        public ActionResult filtrarCentrosAjax(string terminoBusqueda)
+        {
+            if (terminoBusqueda != null)
+            {
+                var lista = db.Centro.Where(x => x.nombre.Contains(terminoBusqueda) || x.direccion.Contains(terminoBusqueda));
+                return PartialView("_ListaCentros", lista.ToList());
+            }
+            return View();
+        }
     }
 }
