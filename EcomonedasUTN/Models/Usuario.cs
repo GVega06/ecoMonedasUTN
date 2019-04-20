@@ -70,6 +70,7 @@ namespace EcomonedasUTN.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<historial> historial { get; set; }
 
+        [Display(Name = "Tipo Usuarios")]
         public virtual Rol Rol { get; set; }
     }
 }

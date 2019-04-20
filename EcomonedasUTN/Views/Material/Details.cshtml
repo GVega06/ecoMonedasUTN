@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+@using EcomonedasUTN.Models
 
 <div class="container">
     <h2 style="margin-top:50px">Detalle</h2>
@@ -44,9 +44,19 @@
             <img width="300" src="@Url.Action("getImage", "Material", new {id=Model.id})">
         </dd>
     </dl>
-    <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-info" }) |
-        @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-info" })
-    </p>
+    @if (((Usuario)Session["session"]).idRol == 1)
+    {
+        <p>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Regresar al Mantenimiento", "Index","Material", new { }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Regresar a la Lista", "ListaCentros","Material", new { }, new { @class = "btn btn-info" })
+        </p>
+    }
+    else
+    {
+        @Html.ActionLink("Regresar a la Lista", "ListaCentros", "Material", new { }, new { @class = "btn btn-info" })
+    }
+
+
 </div>
 

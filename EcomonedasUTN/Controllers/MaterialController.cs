@@ -188,5 +188,20 @@ namespace EcomonedasUTN.Controllers
             memory.Position = 0;
             return File(memory, "image/jpg");
         }
+
+        public ActionResult ListaMateriales()
+        {
+            return View(db.Material.ToList());
+        }
+
+        public ActionResult filtrarProductosAjax(string terminoBusqueda)
+        {
+            if(terminoBusqueda != null)
+            {
+                var lista = db.Material.Where(x => x.nombre.Contains(terminoBusqueda));
+                return PartialView("_ListaMateriales", lista.ToList());
+            }
+            return View();
+        }
     }
 }
