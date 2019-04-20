@@ -5,45 +5,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Material Reciclable</h2>
 
-<p>
-    @Html.ActionLink("Crear Nuevo", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.precio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.color)
-            
-        </th>      
-        <th></th>
-    </tr>
+<div class="container">
+    <h2 style="margin-top:50px">Material Reciclable</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.precio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.color)
-        </td>
-       
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.id }, new { @class = "btn btn-outline-success" }) |
-            @Html.ActionLink("Detalle", "Details", new { id=item.id }, new { @class = "btn btn-outline-success" }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.id }, new { @class = "btn btn-outline-success" })
-        </td>
-    </tr>
-}
-  
-</table>
+    <p>
+        @Html.ActionLink("Crear Nuevo", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.color)
 
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    ₡@Html.DisplayFor(modelItem => item.precio)
+                </td>
+                <td>
+                    <div style="background-color:@item.color;widht:200px;height:38px;border:2px solid black"></div>
+                </td>
+
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "btn btn-info" }) |
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

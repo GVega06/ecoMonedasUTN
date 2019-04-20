@@ -5,36 +5,34 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Iniciar Sesión</h2>
 @using (Html.BeginForm("InicioSesion", "Usuario", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-
+    <div style="width:50%;margin-left:auto;margin-right:auto">
+        <h2 style="margin-top:50px">Iniciar Sesión</h2>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBox("email")
+            <h6 style="margin-left:20px">Correo Electrónico</h6>
+            <div class="col-md-12">
+                @Html.TextBox("email","",new {@class = "form-control" })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.clave, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.Password("clave")
+            <h6 style="margin-left:20px;margin-top: 30px;">Contraseña</h6>
+            <div class="col-md-12">
+                @Html.Password("clave","",new {@class= "form-control" })
                 
                 @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
             </div>
         </div>
 
-
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Iniciar" class="btn btn-outline-success" />
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Iniciar" class="btn btn-info btn-block" style="margin-top:30px"/>
 
                 @Html.ActionLink("¿No te has registrado?", "Create", "Usuario", new { }, htmlAttributes: new { @class = "nav-link" })
             </div>

@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Detalle</h2>
-
-<div>
+<div class="container">
+    <h2 style="margin-top:50px">Detalle</h2>
     <h4>Información de Cupón</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -48,12 +47,13 @@
         </dt>
 
         <dd>
-            <img width="100" src="@Url.Action("getImage", "Cupon", new {id=Model.id})">
+            <img width="300" src="@Url.Action("getImage", "Cupon", new {id=Model.id})">
         </dd>
 
     </dl>
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-info" }) |
+        @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-info" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-outline-success" }) |
-    @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-outline-success" })
-</p>
+

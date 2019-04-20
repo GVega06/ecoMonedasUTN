@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Centro de Acopio</h2>
+<div class="container">
+    <h2 style="margin-top:50px">Centro de Acopio</h2>
 
 <p>
     @Html.ActionLink("Crear Nuevo", "Create")
@@ -46,11 +47,12 @@
                 @Html.DisplayFor(modelItem => item.estado)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "btn btn-outline-success" }) |
-                @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "btn btn-outline-success" }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "btn btn-outline-success" })
+                @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "btn btn-info" })
             </td>
         </tr>
     }
 
 </table>
+
+</div>
