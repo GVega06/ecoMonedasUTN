@@ -10,13 +10,14 @@ using EcomonedasUTN.Models;
 using System.Web.Helpers;
 using System.IO;
 using System.Drawing;
+using System.Text;
 
 namespace EcomonedasUTN.Controllers
 {
     public class CuponController : Controller
     {
         private ecoMonedaModel db = new ecoMonedaModel();
-
+       
         // GET: Cupon
         public ActionResult Index()
         {
@@ -167,20 +168,39 @@ namespace EcomonedasUTN.Controllers
         }
 
 
-        public ActionResult getImage(int id)
+        public ActionResult Cupon()
         {
-            Cupon cupon = db.Cupon.Find(id);
-            byte[] byteImage = cupon.imagen;
+            Random ran = new Random();
+            string posibles = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890123456789";          
+            int longitud = posibles.Length;
+            char letra;
+            int longitudnuevacadena = 16;
+            string nuevacadena = "";
+            for (int i = 0; i < longitudnuevacadena; i++)
+            {
+               letra = posibles[ran.Next(longitud)];
+               nuevacadena += letra.ToString();
+            }
 
-            System.IO.MemoryStream memory = new MemoryStream(byteImage);
-            Image image = Image.FromStream(memory);
 
-            memory = new MemoryStream();
-            image.Save(memory, System.Drawing.Imaging.ImageFormat.Jpeg);
-            memory.Position = 0;
-            return File(memory, "image/jpg");
+
+
+            var query = from r in db.CuponesDisponibles
+                        join t in db.Usuario on r.idUsuario equals t.email
+                        join c in db.Cupon on r.idCupon equals c.id
+                        select new
+                        {
+                            c.nombre,
+                            r.fechaAdquirido,
+                            c.valor,
+                            Usuario = t.nombre,
+                            codigo = nuevacadena
+
+                        };
+            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "CuponCanje.rdlc");
+            return View();
         }
-
+        
         public ActionResult ListaCupones()
         {
             return View(db.Cupon.Where(x => x.estado == true).ToList());

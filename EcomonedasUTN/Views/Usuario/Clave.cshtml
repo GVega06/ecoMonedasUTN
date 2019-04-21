@@ -1,0 +1,51 @@
+﻿@model EcomonedasUTN.Models.Usuario
+
+@{
+    ViewBag.Title = "Clave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="width:50%;margin-left:auto;margin-right:auto">
+    <h2 style="margin-top:50px">Cambiar contraseña</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.email)
+
+
+
+
+            <div class="form-group">
+                <h6 style="margin-left:20px">Contraseña</h6>
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.clave, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <h6 style="margin-left:20px">Repetir Contraseña</h6>
+                <div class="col-md-10">
+                    @Html.Password("repetirClave", "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Actualizar" class="btn btn-info" />
+                    @Html.ActionLink("Regresar", "Details", new { }, new { @class = "btn btn-info" })
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

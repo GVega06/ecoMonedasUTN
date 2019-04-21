@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using EcomonedasUTN.Models;
 using System.Globalization;
+using System.Web.UI.WebControls;
 
 namespace EcomonedasUTN.Controllers
 {
@@ -18,7 +19,7 @@ namespace EcomonedasUTN.Controllers
         // GET: Centro
         public ActionResult Index()
         {
-
+            ViewBag.Provincia = cargarProvinciasDropDownList();
             if (TempData.ContainsKey("mensaje"))
             {
                 ViewBag.Mensaje = TempData["mensaje"].ToString();
@@ -52,9 +53,28 @@ namespace EcomonedasUTN.Controllers
         {
 
             ViewBag.Provincia = cargarProvinciasDropDownList();
-            ViewBag.idUsuario = new SelectList(db.Usuario, "email", "nombre");
+            ViewBag.Usuario = cargarUsuarioDropDownList();
+            if (TempData.ContainsKey("mensajeCentro"))
+            {
+                ViewBag.MensajeCentro = TempData["mensajeCentro"].ToString();
+            }
             return View();
         }
+
+        private SelectList cargarUsuarioDropDownList(object selected = null)
+        {
+            var listado = db.Usuario.OrderBy(x => x.nombre).Where(x => x.idRol ==2);
+
+            return new SelectList(listado, "email", "nombre", selected);
+        }
+
+        private bool consultaCentro(string email)
+        {
+
+            var lista= db.Centro.Where(x => x.idUsuario.Equals(email));
+            return true;
+        }
+
 
         // POST: Centro/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -63,16 +83,27 @@ namespace EcomonedasUTN.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,nombre,provincia,direccion,estado,idUsuario")] Centro centro)
         {
+
             if (ModelState.IsValid)
             {
+                if (consultaCentro(centro.idUsuario))
+                {
+                    TempData["mensajeCentro"] = "Este usuario ya tiene asignado un centro";
+                    return View(centro);
+                }
+
                 db.Centro.Add(centro);
                 db.SaveChanges();
                 TempData["mensaje"] = "Centro de Acopio guardado con éxito";
                 return RedirectToAction("Index");
             }
             ViewBag.Provincia = cargarProvinciasDropDownList();
-            ViewBag.idUsuario = new SelectList(db.Usuario, "email", "nombre", centro.idUsuario);
+            ViewBag.Usuario = cargarUsuarioDropDownList();
             TempData["mensaje"] = "No se pudo guadar el centro de acopio";
+            if (TempData.ContainsKey("mensajeCentro"))
+            {
+                ViewBag.MensajeCentro = TempData["mensajeCentro"].ToString();
+            }
             return View(centro);
         }
 
@@ -95,7 +126,7 @@ namespace EcomonedasUTN.Controllers
             }
 
             ViewBag.Provincia = cargarProvinciasDropDownList();
-            ViewBag.idUsuario = new SelectList(db.Usuario, "email", "nombre", centro.idUsuario);
+            ViewBag.Usuario = cargarUsuarioDropDownList();
             return View(centro);
         }
 
@@ -106,6 +137,13 @@ namespace EcomonedasUTN.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,nombre,provincia,direccion,estado,idUsuario")] Centro centro)
         {
+
+            if (consultaCentro(centro.idUsuario))
+            {
+                TempData["mensaje"] = "Este usuario ya tiene asignado un centro";
+                return View(centro);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(centro).State = EntityState.Modified;
@@ -114,7 +152,8 @@ namespace EcomonedasUTN.Controllers
                 return RedirectToAction("Index");
             }
             TempData["mensaje"] = "No se pudo modificar el centro de acopio";
-            ViewBag.idUsuario = new SelectList(db.Usuario, "email", "nombre", centro.idUsuario);
+            ViewBag.Usuario = cargarUsuarioDropDownList();
+            ViewBag.Provincia = cargarProvinciasDropDownList();
             return View(centro);
         }
 
@@ -149,17 +188,23 @@ namespace EcomonedasUTN.Controllers
             return RedirectToAction("Index");
         }
 
+
         private SelectList cargarProvinciasDropDownList(object selected = null)
         {
-            var listaProvincia = new List<object>();
-            listaProvincia.Add("San José");
-            listaProvincia.Add("Alajuela");
-            listaProvincia.Add("Cartago");
-            listaProvincia.Add("Heredia");
-            listaProvincia.Add("Guanacaste");
-            listaProvincia.Add("Puntarenas");
-            listaProvincia.Add("Limón");
-            return new SelectList(listaProvincia, selected);
+           var lst = new List<SelectListItem>();    
+            //De la siguiente manera llenamos manualmente,
+            //Siendo el campo Text lo que ve el usuario y
+            //el campo Value lo que en realidad vale nuestro valor
+            lst.Add(new SelectListItem() { Text = "San José", Value = "San José" });
+            lst.Add(new SelectListItem() { Text = "Alajuela", Value = "Alajuela" });
+            lst.Add(new SelectListItem() { Text = "Cartago", Value = "Cartago" });
+            lst.Add(new SelectListItem() { Text = "Heredia", Value = "Heredia" });
+            lst.Add(new SelectListItem() { Text = "Guanacaste", Value = "Guanacaste" });
+            lst.Add(new SelectListItem() { Text = "Puntarenas", Value = "Puntarenas" });
+            lst.Add(new SelectListItem() { Text = "Limón", Value = "Limón" });
+  
+       
+            return new SelectList(lst, "Value", "Text", selected);
         }
 
 
@@ -182,7 +227,7 @@ namespace EcomonedasUTN.Controllers
         {
             if (terminoBusqueda != null)
             {
-                var lista = db.Centro.Where(x => x.nombre.Contains(terminoBusqueda) || x.direccion.Contains(terminoBusqueda));
+                var lista = db.Centro.Where(x => x.nombre.Contains(terminoBusqueda) || x.direccion.Contains(terminoBusqueda) && x.estado.Equals("true")) ;
                 return PartialView("_ListaCentros", lista.ToList());
             }
             return View();

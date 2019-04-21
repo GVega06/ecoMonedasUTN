@@ -7,12 +7,13 @@
 
 
 <div class="container">
-    <h2>Usuarios</h2>
+    <h2 style="margin-top:50px">Usuarios</h2>
 
     <p>
         @Html.ActionLink("Crear un nuevo usuario", "Create","Usuario",htmlAttributes: new {@class= "btn btn-info" })
     </p>
     <table class="table">
+
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Rol)
@@ -57,10 +58,13 @@
                     @Html.DisplayFor(modelItem => item.direccion)
                 </td>
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.email },htmlAttributes: new { @class = "btn btn-info"}) |
-                    @Html.ActionLink("Detalles", "Details", new { id = item.email }, htmlAttributes: new { @class = "btn btn-info" })
+                    @Html.ActionLink("Editar", "EditarUser", new { email = item.email},htmlAttributes: new { @class = "btn btn-info"}) |
+                    @Html.ActionLink("Regresar", "Index", "Inicio", new {}, htmlAttributes: new { @class = "btn btn-info" })
                 </td>
             </tr>
         }
     </table>
 </div>
+
+
+       

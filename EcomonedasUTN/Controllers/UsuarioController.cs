@@ -26,7 +26,7 @@ namespace EcomonedasUTN.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-            var usuario = db.Usuario.Include(u => u.Rol);
+            var usuario = db.Usuario.Where(u => u.idRol == 3);
             if (TempData.ContainsKey("mensaje"))
             {
                 ViewBag.Mensaje = TempData["mensaje"].ToString();
@@ -38,8 +38,9 @@ namespace EcomonedasUTN.Controllers
         // GET: Usuario/Details/5
         public ActionResult Details()
         {
-            LoadSessionObject();
-            return View();
+            Usuario user = ((Usuario)Session["session"]);
+
+            return View(user);
         }
 
         // GET: Usuario/Create
@@ -107,33 +108,137 @@ namespace EcomonedasUTN.Controllers
             Usuario user = ((Usuario)Session["session"]);
             if (user == null)
             {
-                TempData["mensaje"] = "Usuario no Existe";
+                TempData["mensaje"] = "Usuario no existe";
                 return RedirectToAction("Index");
             }
             //LoadSessionObject();
-            ViewBag.Provincia = cargarProvinciasDropDownList();         
+            ViewBag.Provincia = cargarProvinciasDropDownList();
             return View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "nombre,clave,telefono,direccion")] Usuario usuario)
+        public ActionResult Edit(string nombre, string telefono, string direccion, string provincia)
         {
+            ViewBag.Provincia = cargarProvinciasDropDownList();
             //LoadSessionObject();
-            ViewData["email"] = usuario.email;
-            usuario.idRol = usuario.idRol;
-            usuario.estado = usuario.estado;
+
+            Usuario user = ((Usuario)Session["session"]);
+
+            ViewData["email"] = user.email;
+            ViewData["idRol"] = user.idRol;
+            ViewData["estado"] = user.estado;
+            ViewData["clave"] = user.clave;
+            user.telefono = Convert.ToInt32(telefono);
+            user.nombre = nombre;
+            user.direccion = provincia + " " + direccion;
+
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                Session["session"] = user;
+                db.SaveChanges();
+                return RedirectToAction("Details");
+            }
+
+            return View(user);
+        }
+
+
+        public ActionResult Clave()
+        {
+            Usuario user = ((Usuario)Session["session"]);
+            if (user == null)
+            {
+                TempData["mensaje"] = "Usuario no existe";
+                return RedirectToAction("Index");
+            }
+         
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Clave(string clave, string repetirClave)
+        {
+           
+            //LoadSessionObject();
+
+            Usuario user = ((Usuario)Session["session"]);
+
+            ViewData["email"] = user.email;
+            ViewData["idRol"] = user.idRol;
+            ViewData["estado"] = user.estado;
+             user.clave = clave;
+            ViewData["telefono"] = user.telefono;
+            ViewData["nombre"] = user.nombre;
+            ViewData["direccion"] = user.direccion;
+
+
+            if (clave.Equals(repetirClave)) { 
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                Session["session"] = user;
+                db.SaveChanges();
+                return RedirectToAction("Details");
+            }
+            }
+            TempData["mensajeClave"] = "Contraseñas no coinciden";
+            if (TempData.ContainsKey("mensajeClave"))
+            {
+                ViewBag.Mensaje = TempData["mensajeClave"].ToString();
+            }
+       
+            return View(user);
+        }
+
+        public ActionResult EditarUser(string email)
+        {
+            if (email.Equals(""))
+           {
+               TempData["mensaje"] = "Especifique un usuario";
+           }
+
+            Usuario user = db.Usuario.Find(email);
+            if (user == null)
+            {
+                TempData["mensaje"] = "Usuario no existe";
+                return RedirectToAction("Index");
+            }
+            //LoadSessionObject();
+            ViewBag.Rol = cargarRolDropDownList();
+            return View(user);
+        }
+
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarUser([Bind(Include = "email,nombre,clave,idRol,estado,telefono,direccion")] Usuario usuario)
+        {
             if (ModelState.IsValid)
             {
                 db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
-                Session["session"] = usuario;
                 return RedirectToAction("Index");
             }
+            ViewBag.Rol = cargarRolDropDownList();
             return View(usuario);
         }
-        // GET: Usuario/Delete/5
-        public ActionResult Delete(string id)
+
+        private dynamic cargarRolDropDownList(object selected = null)
+        {
+       
+            var listado = db.Rol.OrderBy(x => x.descripcion);
+            return new SelectList(listado, "idRol", "descripcion", selected);
+    }
+
+    // GET: Usuario/Delete/5
+    public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -215,6 +320,11 @@ namespace EcomonedasUTN.Controllers
                 return RedirectToAction("InicioSesion");
             }
 
+            if(user.idRol == 2)
+            {
+                
+            }
+
             if (user.email.Equals(email) && user.clave.Equals(clave) && user.estado == true)
             {
                 System.Web.HttpContext.Current.Session["email"] = email;
@@ -228,14 +338,16 @@ namespace EcomonedasUTN.Controllers
                 return RedirectToAction("Index", "Inicio");
             }
 
+          
+
+
+            TempData["mensajeUser"] = "Usuario o contraseña incorrecta";
+
             if (TempData.ContainsKey("mensajeUser"))
             {
                 ViewBag.MensajeUser = TempData["mensajeUser"].ToString();
             }
-
-
-            TempData["mensajeUser"] = "Usuario o contraseña incorrecta";
-                    return View(user);         
+            return View(user);         
         }
 
 
