@@ -27,9 +27,8 @@
             @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.provincia,
-               (SelectList)ViewBag.Provincia,
-               "-Seleccione una provincia-",
-               htmlAttributes: new { @class = "form-control" })
+              (SelectList)ViewBag.Provincia,
+             htmlAttributes: new { @class = "form-control", required = "required" })
                 @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -55,7 +54,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.idUsuario, "Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("idUsuario", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.idUsuario,
+               (SelectList)ViewBag.Usuario,
+               "-Seleccione un usuario-",
+               htmlAttributes: new { @class = "form-control", required = "required" })
                 @Html.ValidationMessageFor(model => model.idUsuario, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -68,3 +70,12 @@
         </div>
     </div>
 }
+@if (ViewBag.MensajeCentro != "" && ViewBag.Mensaje != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@ViewBag.MensajeCentro</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}    

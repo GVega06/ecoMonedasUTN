@@ -63,7 +63,7 @@
                 @Html.DropDownList("provincia",
                (SelectList)ViewBag.Provincia,
                "-Seleccione una provincia-",
-               htmlAttributes: new { @class = "form-control" })
+               htmlAttributes: new { @class = "form-control", required = "required" })
                 @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
             </div>
         </div>

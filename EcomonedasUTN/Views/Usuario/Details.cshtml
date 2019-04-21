@@ -10,13 +10,15 @@
     <h4>Información de Usuario</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
             @Html.DisplayNameFor(model => model.email)
         </dt>
 
         <dd>
-            @ViewData["email"]            
+            @{
+                var email = (Session["email"]);
+            }
+            @email        
         </dd>
 
         <dt>
@@ -24,8 +26,10 @@
         </dt>
 
         <dd>
-           @ViewData["nombre"] 
-            @Html.DisplayFor(model => model.nombre)
+            @{
+                    var nombre = (Session["nombre"]);
+            }
+            @nombre
         </dd>
 
         <dt>
@@ -33,7 +37,10 @@
         </dt>
 
         <dd>
-            @ViewData["telefono"]
+            @{
+                var telefono = (Session["telefono"]);
+            }
+            @telefono
             
         </dd>
 
@@ -42,14 +49,17 @@
         </dt>
 
         <dd>
-            @ViewData["direccion"]
+            @{
+                var direccion = (Session["direccion"]);
+            }
+            @direccion
             
         </dd>
    
     </dl>
     <p>
         @Html.ActionLink("Editar", "Edit", new { }, new { @class = "btn btn-info" }) |
-        @Html.ActionLink("Cambiar Contraseña", "", new { id = @ViewData["email"] }, new { @class = "btn btn-info" }) |
+        @Html.ActionLink("Cambiar Contraseña", "Clave", new { }, new { @class = "btn btn-info" }) |
         @Html.ActionLink("Regresar", "Index","Inicio", new { }, new { @class = "btn btn-info" })
     </p> 
 </div>
