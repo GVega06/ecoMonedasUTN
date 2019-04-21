@@ -1,0 +1,17 @@
+﻿@model IEnumerable<EcomonedasUTN.Models.Centro>
+
+@foreach (var item in Model)
+{
+    <div class="card mb-3" style="margin: 38px;min-width: 300px;max-width: 300px">
+        <h3 class="card-header" style="background-color:teal;text-align:center">@item.nombre</h3>
+        <div class="card-body" style="text-align:center">
+            Encargado: <h5>  @item.Usuario.nombre </h5>
+        </div>
+        <div class="card-body" style="text-align:center">
+            Valor: <h5>  @item.direccion </h5>
+        </div>
+        <div class="card-body" style="text-align: center">
+            @Html.ActionLink("Detalles", "Details", "Centro", new { id = item.id }, htmlAttributes: new { @class = "btn btn-info btn-block" })
+        </div>
+    </div>
+}

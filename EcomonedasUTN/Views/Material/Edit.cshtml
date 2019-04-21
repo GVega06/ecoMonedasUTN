@@ -5,58 +5,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Editar</h2>
 
-@using (Html.BeginForm("Edit", "Material", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Información de Material Reciclable</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
+<div class="container">
+    <h2 style="margin-top:50px">Editar</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+    @using (Html.BeginForm("Edit", "Material", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Información de Material Reciclable</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.precio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.color, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.color, new { @class = "form-control", type = "color" })
+                    @Html.ValidationMessageFor(model => model.color, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.imagen, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <img width="300" src="@Url.Action("getImage", "Material", new {id=Model.id})">
+                    <br>
+                    <input name="imgLoad" type="file" />
+                    @Html.ValidationMessageFor(model => model.imagen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Actualizar" class="btn btn-info" />
+                    @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-info" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.precio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.precio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.color, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.color, new { @class = "form-control", type = "color" })
-                @Html.ValidationMessageFor(model => model.color, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.imagen, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <img width="100" src="@Url.Action("getImage", "Material", new {id=Model.id})">
-                <br>
-                <input name="imgLoad" type="file" />
-                @Html.ValidationMessageFor(model => model.imagen, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Actualizar" class="btn btn-outline-success" />
-                @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-outline-success" })
-            </div>
-        </div>
-    </div>
-}
-
+    }
+</div>

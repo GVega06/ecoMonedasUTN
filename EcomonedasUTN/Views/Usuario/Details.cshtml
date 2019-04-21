@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Detalle</h2>
-
-<div>
+<div class="container">
+    <h2 style="margin-top:50px">Detalle de Cuenta</h2>
     <h4>Información de Usuario</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -30,15 +29,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.clave)
-        </dt>
-
-        <dd>
-            @ViewData["clave"]
-            
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.telefono)
         </dt>
 
@@ -57,11 +47,12 @@
         </dd>
    
     </dl>
-        
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { }, new { @class = "btn btn-info" }) |
+        @Html.ActionLink("Cambiar Contraseña", "", new { id = @ViewData["email"] }, new { @class = "btn btn-info" }) |
+        @Html.ActionLink("Regresar", "Index","Inicio", new { }, new { @class = "btn btn-info" })
+    </p> 
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = @ViewData["email"] }, new { @class = "btn btn-outline-success" }) |
-    @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-outline-success" })
-</p>
+
 
 

@@ -129,6 +129,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Imagenes\1.jpg" />
+    <Content Include="Content\Imagenes\2.jpg" />
+    <Content Include="Content\Imagenes\3.jpg" />
+    <Content Include="Content\Imagenes\Bosque.jpg" />
+    <Content Include="Content\Imagenes\playa.jpg" />
+    <Content Include="Content\Imagenes\Volcan.jpeg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="ReportViewerWebForm.aspx" />
@@ -170,11 +176,15 @@
     <Content Include="Reportes\dsEncCambio.xss">
       <DependentUpon>dsEncCambio.xsd</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
-    <Content Include="Scripts\jquery-3.0.0.js" />
-    <Content Include="Scripts\jquery-3.0.0.min.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.2.1.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\popper-utils.js" />
@@ -232,8 +242,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
-    <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Shared\EditorTemplates\SiNo.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiNo.cshtml" />
     <Content Include="Views\Inicio\Index.cshtml" />
@@ -261,6 +269,10 @@
     <Content Include="Views\EncCambio\reporteEstadistica.cshtml" />
     <Content Include="Views\EncCambio\_estadisticaEcoMoneda.cshtml" />
     <Content Include="Views\EncCambio\_mensaje.cshtml" />
+    <Content Include="Views\Material\ListaMateriales.cshtml" />
+    <Content Include="Views\Material\_ListaMateriales.cshtml" />
+    <Content Include="Views\Centro\ListaCentros.cshtml" />
+    <Content Include="Views\Centro\_ListaCentros.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

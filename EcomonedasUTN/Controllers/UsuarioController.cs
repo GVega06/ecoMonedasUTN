@@ -75,6 +75,7 @@ namespace EcomonedasUTN.Controllers
 
                         db.Usuario.Add(usuario);
                         db.SaveChanges();
+                        Session["session"] = usuario;
                         return RedirectToAction("Index");
                     }
                     else
@@ -101,23 +102,17 @@ namespace EcomonedasUTN.Controllers
         }
 
         // GET: Usuario/Edit/5
-        public ActionResult Edit(string id)
-        {          
-            if (id == null)
+        public ActionResult Edit()
+        {
+            Usuario user = ((Usuario)Session["session"]);
+            if (user == null)
             {
-                TempData["mensaje"] = "Usuario no coinciden";
-                return RedirectToAction("Index");
-            }
-            Usuario us = db.Usuario.Find(id);
-            ViewData["email"] = us.email;
-            if (us == null)
-            {
-                TempData["mensaje"] = "Usuario no existe";
+                TempData["mensaje"] = "Usuario no Existe";
                 return RedirectToAction("Index");
             }
             //LoadSessionObject();
             ViewBag.Provincia = cargarProvinciasDropDownList();         
-            return View(us);
+            return View(user);
         }
 
         [HttpPost]
@@ -132,6 +127,7 @@ namespace EcomonedasUTN.Controllers
             {
                 db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
+                Session["session"] = usuario;
                 return RedirectToAction("Index");
             }
             return View(usuario);
@@ -189,7 +185,6 @@ namespace EcomonedasUTN.Controllers
         {
             Models.Usuario usuario = db.Usuario.Find(id);
 
-
             if (usuario.email.Equals(id))
             {
                 return true;
@@ -203,8 +198,6 @@ namespace EcomonedasUTN.Controllers
 
         public ActionResult InicioSesion()
         {
-      
-
             return View();
         }
 
@@ -215,9 +208,13 @@ namespace EcomonedasUTN.Controllers
         public ActionResult InicioSesion(string email, string clave)
         {
 
-                Models.Usuario user = db.Usuario.Find(email);
+            Usuario user = db.Usuario.Find(email);
+            if (user == null)
+            {
+                ViewBag.Mensaje = "Usuario no Existente";
+                return RedirectToAction("InicioSesion");
+            }
 
-    
             if (user.email.Equals(email) && user.clave.Equals(clave) && user.estado == true)
             {
                 System.Web.HttpContext.Current.Session["email"] = email;
@@ -227,11 +224,9 @@ namespace EcomonedasUTN.Controllers
                 System.Web.HttpContext.Current.Session["estado"] = user.estado;
                 System.Web.HttpContext.Current.Session["telefono"] = user.telefono;
                 System.Web.HttpContext.Current.Session["direccion"] = user.direccion;
-                ViewBag.User = System.Web.HttpContext.Current.Session["email"];
+                Session["session"] = user;
                 return RedirectToAction("Index", "Inicio");
-
             }
-
 
             if (TempData.ContainsKey("mensajeUser"))
             {
@@ -256,5 +251,11 @@ namespace EcomonedasUTN.Controllers
             ViewData["direccion"] = System.Web.HttpContext.Current.Session["direccion"] as String;
         }
       
+        public ActionResult CerrarSession()
+        {
+            Session["session"] = null;
+            return Redirect("InicioSesion");
+        }
+
     }
 }

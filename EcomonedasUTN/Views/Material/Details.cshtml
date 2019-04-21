@@ -5,9 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin-top:50px">Detalle</h2>
+@using EcomonedasUTN.Models
 
-<div>
+<div class="container">
+    <h2 style="margin-top:50px">Detalle</h2>
     <h4>Información de Material Reciclable</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -24,7 +25,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.precio)
+            ₡@Html.DisplayFor(model => model.precio)
         </dd>
 
         <dt>
@@ -32,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.color)
+            <div style="background-color: @Model.color;width:300px;height:38px;border:2px solid black"></div>
         </dd>
 
         <dt>
@@ -40,12 +41,22 @@
         </dt>
 
         <dd>
-            <img width="100" src="@Url.Action("getImage", "Material", new {id=Model.id})">
+            <img width="300" src="@Url.Action("getImage", "Material", new {id=Model.id})">
         </dd>
-
     </dl>
+    @if (((Usuario)Session["session"]).idRol == 1)
+    {
+        <p>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Regresar al Mantenimiento", "Index","Material", new { }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Regresar a la Lista", "ListaCentros","Material", new { }, new { @class = "btn btn-info" })
+        </p>
+    }
+    else
+    {
+        @Html.ActionLink("Regresar a la Lista", "ListaCentros", "Material", new { }, new { @class = "btn btn-info" })
+    }
+
+
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-outline-success" }) |
-    @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-outline-success" })
-</p>
+
