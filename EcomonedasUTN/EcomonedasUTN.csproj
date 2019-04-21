@@ -132,7 +132,10 @@
     <Content Include="Content\Imagenes\1.jpg" />
     <Content Include="Content\Imagenes\2.jpg" />
     <Content Include="Content\Imagenes\3.jpg" />
+    <Content Include="Content\Imagenes\analitica.svg" />
+    <Content Include="Content\Imagenes\banco.svg" />
     <Content Include="Content\Imagenes\Bosque.jpg" />
+    <Content Include="Content\Imagenes\cambiar.svg" />
     <Content Include="Content\Imagenes\playa.jpg" />
     <Content Include="Content\Imagenes\Volcan.jpeg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -211,6 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BilleteraVirtualController.cs" />
     <Compile Include="Controllers\CentroController.cs" />
     <Compile Include="Controllers\CuponController.cs" />
     <Compile Include="Controllers\EncCambioController.cs" />
@@ -221,6 +225,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BilleteraVirtual.cs" />
+    <Compile Include="Models\Carrito.cs" />
+    <Compile Include="Models\CarritoCompras.cs" />
     <Compile Include="Models\Centro.cs" />
     <Compile Include="Models\Cupon.cs" />
     <Compile Include="Models\CuponesDisponibles.cs" />
@@ -277,6 +283,8 @@
     <Content Include="Views\Usuario\EditarUser.cshtml" />
     <Content Include="Views\Usuario\Clave.cshtml" />
     <Content Include="Views\Cupon\Cupon.cshtml" />
+    <Content Include="Views\BilleteraVirtual\Index.cshtml" />
+    <Content Include="Views\Cupon\ListaCupones.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

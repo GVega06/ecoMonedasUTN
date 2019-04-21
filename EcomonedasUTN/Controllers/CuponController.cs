@@ -200,9 +200,10 @@ namespace EcomonedasUTN.Controllers
             ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "CuponCanje.rdlc");
             return View();
         }
-
-  
-    }
-
-  
+        
+        public ActionResult ListaCupones()
+        {
+            return View(db.Cupon.Where(x => x.estado == true).ToList());
+        }
+    }  
 }

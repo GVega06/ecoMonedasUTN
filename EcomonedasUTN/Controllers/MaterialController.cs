@@ -203,5 +203,10 @@ namespace EcomonedasUTN.Controllers
             }
             return View();
         }
+
+        public void AgregarCarrito(int id)
+        {
+            Carrito.Instancia.AgregarItem(id);
+        }
     }
 }
