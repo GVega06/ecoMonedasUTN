@@ -1,0 +1,15 @@
+﻿
+
+@{
+    ViewBag.Title = "Reporte estadística";
+
+}
+@if (ViewBag.MensajeReporte != "" && ViewBag.MensajeReporte != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@ViewBag.MensajeReporte</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
