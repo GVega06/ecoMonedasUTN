@@ -260,6 +260,7 @@
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\EncCambio\reporteEstadistica.cshtml" />
     <Content Include="Views\EncCambio\_estadisticaEcoMoneda.cshtml" />
+    <Content Include="Views\EncCambio\_mensaje.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
