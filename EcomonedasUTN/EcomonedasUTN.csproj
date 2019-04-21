@@ -229,6 +229,7 @@
     <Compile Include="Models\EncCambio.cs" />
     <Compile Include="Models\historial.cs" />
     <Compile Include="Models\Material.cs" />
+    <Compile Include="Models\Provincia.cs" />
     <Compile Include="Models\Reporte.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -273,6 +274,9 @@
     <Content Include="Views\Material\_ListaMateriales.cshtml" />
     <Content Include="Views\Centro\ListaCentros.cshtml" />
     <Content Include="Views\Centro\_ListaCentros.cshtml" />
+    <Content Include="Views\Usuario\EditarUser.cshtml" />
+    <Content Include="Views\Usuario\Clave.cshtml" />
+    <Content Include="Views\Cupon\Cupon.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -290,6 +294,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\CuponCanje.rdlc" />
     <EmbeddedResource Include="Reportes\reporteEstadistica.rdlc" />
   </ItemGroup>
   <PropertyGroup>
