@@ -49,12 +49,12 @@
         <p>
             @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-info" }) |
             @Html.ActionLink("Regresar al Mantenimiento", "Index","Material", new { }, new { @class = "btn btn-info" }) |
-            @Html.ActionLink("Regresar a la Lista", "ListaCentros","Material", new { }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Regresar a la Lista", "ListaMateriales", "Material", new { }, new { @class = "btn btn-info" })
         </p>
     }
     else
     {
-        @Html.ActionLink("Regresar a la Lista", "ListaCentros", "Material", new { }, new { @class = "btn btn-info" })
+        @Html.ActionLink("Regresar a la Lista", "ListaMateriales", "Material", new { }, new { @class = "btn btn-info" })
     }
 
 

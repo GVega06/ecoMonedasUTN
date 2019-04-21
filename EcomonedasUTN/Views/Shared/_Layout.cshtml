@@ -40,6 +40,7 @@
                 }
                 @Html.ActionLink("Materiales","ListaMateriales", "Material", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
                 @Html.ActionLink("Centros de Acopio", "ListaCentros", "Centro", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
+                @Html.ActionLink("Cupones", "ListaCupones", "Cupon", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
             </ul>
             @if (((Usuario)Session["session"]) != null)
             {
@@ -53,6 +54,10 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @Html.ActionLink("Administrar", "Details", "Usuario", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                            @if (((Usuario)Session["session"]).idRol == 3)
+                            {
+                                @Html.ActionLink("Billetera Virtual", "Index", "BilleteraVirtual", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                            }
                             <div class="dropdown-divider"></div>
                             @Html.ActionLink("Cerrar Sesión", "CerrarSession", "Usuario", new { }, htmlAttributes: new { @class = "dropdown-item" })
                         </div>

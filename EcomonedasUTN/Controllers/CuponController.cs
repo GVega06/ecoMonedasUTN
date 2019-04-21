@@ -180,7 +180,10 @@ namespace EcomonedasUTN.Controllers
             memory.Position = 0;
             return File(memory, "image/jpg");
         }
-    }
 
-  
+        public ActionResult ListaCupones()
+        {
+            return View(db.Cupon.Where(x => x.estado == true).ToList());
+        }
+    }  
 }
