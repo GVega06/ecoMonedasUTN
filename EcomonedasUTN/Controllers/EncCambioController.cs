@@ -12,43 +12,76 @@ namespace EcomonedasUTN.Controllers
         private ecoMonedaModel db = new ecoMonedaModel();
         public ActionResult reporteEstadistica(string fechaAnterior, string fechaActual)
         {
-            DateTime anterior = Convert.ToDateTime(fechaActual);
-            DateTime actual = Convert.ToDateTime(fechaAnterior);
-            if (TempData.ContainsKey("mensajeReporte"))
-            {
-                ViewBag.MensajeReporte = TempData["mensajeReporte"].ToString();
-            }
-
+        
 
             if (fechaAnterior != null && fechaActual != null)
             {
-                if (anterior.Year> actual.Year)
+                DateTime anterior = Convert.ToDateTime(fechaAnterior);
+                DateTime actual = Convert.ToDateTime(fechaActual);
+
+                if (anterior.Year > actual.Year)
                 {
                     TempData["mensajeReporte"] = "Seleccione una fecha válida";
-                }
 
-                if(anterior.Year == actual.Year && anterior.Month > actual.Month)
+                }
+                else
                 {
-                    TempData["mensajeReporte"] = "Seleccione una fecha válida";
-                }
+                    if (anterior.Year == actual.Year && anterior.Month > actual.Month)
+                    {
+                        TempData["mensajeReporte"] = "Seleccione una fecha válida";
 
-                var query = from r in db.EncCambio
-                            join c in db.Centro on r.idCentro equals c.id
-                            where r.fecha == anterior
-                        
+                    }
+                    else
+                    {
+                        if (anterior.Year == actual.Year && anterior.Month == actual.Month && anterior.Day > actual.Day)
+                        {
+                            TempData["mensajeReporte"] = "Seleccione una fecha válida";
 
-                            select new
+                        }
+
+                        else
+                        {
+                            if (actual > DateTime.Now)
                             {
-                                r.fecha,                          
-                                c.nombre,
-                                 total = r.total
-                            };
-                ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteEstadistica.rdlc");
-                return PartialView("_estadisticaEcoMoneda", query.ToList());
+                                TempData["mensajeReporte"] = "Seleccione una fecha válida";
+                            }
+
+                            else
+                            {
+                                var query = from r in db.EncCambio
+                                            join c in db.Centro on r.idCentro equals c.id
+                                            join u in db.Usuario on r.idUsuario equals u.email
+                                            where r.fecha >= anterior && r.fecha <= actual
+
+
+                                            select new
+                                            {
+                                                r.fecha,
+                                                c.nombre,
+                                                total = r.total,
+                                                Usuario = u.nombre
+                                            };
+
+
+                                ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteEstadistica.rdlc");
+                                return PartialView("_estadisticaEcoMoneda", query.ToList());
+
+
+                            }
+                        }
+                    }
+                }
+
+                if (TempData.ContainsKey("mensajeReporte"))
+                {
+                    ViewBag.MensajeReporte = TempData["mensajeReporte"].ToString();
+                    return PartialView("_mensaje");
+
+                }
+            }
+
+                return View();
 
             }
-            return View();
-
-        }
     }
 }

@@ -268,10 +268,9 @@
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\EncCambio\reporteEstadistica.cshtml" />
     <Content Include="Views\EncCambio\_estadisticaEcoMoneda.cshtml" />
+    <Content Include="Views\EncCambio\_mensaje.cshtml" />
     <Content Include="Views\Material\ListaMateriales.cshtml" />
     <Content Include="Views\Material\_ListaMateriales.cshtml" />
-    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Centro\ListaCentros.cshtml" />
     <Content Include="Views\Centro\_ListaCentros.cshtml" />
     <None Include="Web.Debug.config">
