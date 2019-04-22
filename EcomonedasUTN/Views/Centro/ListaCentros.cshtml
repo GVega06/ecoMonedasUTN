@@ -5,7 +5,7 @@
 }
 
 <div class="container">
-    <h2>Materiales Reciclables</h2>
+    <h2 style="margin-top:30px">Centro de Acopio</h2>
 
     @using (Ajax.BeginForm("filtrarCentrosAjax", "Centro", new AjaxOptions
     {
@@ -18,10 +18,15 @@
         <div class="form-horizontal">
             <div class="form-group">
                 Buscar:
-                @Html.TextBox("terminoBusqueda", "", new { @class = "form-control", @placeholder = "Criterio de búsqueda" })
+
+                @Html.DropDownList("provincia",
+               (SelectList)ViewBag.Provincia,
+               htmlAttributes: new { @class = "form-control" })
+
+
             </div>
             <div class="form-group">
-                <input type="submit" value="Buscar" class="btn btn-info" />
+                <input type="submit" value="Buscar" class="btn" style="background-color:TOMATO; color:white" />
             </div>
         </div>
     }
@@ -29,23 +34,96 @@
     <div id="divCentro" class="row">
         @foreach (var item in Model)
         {
-            <div class="card mb-3" style="margin: 38px;min-width: 300px;max-width: 300px">
-                <h3 class="card-header bg-secondary" style="text-align:center;color: white">@item.nombre</h3>
-                <div class="card-body" style="text-align:center">
-                    Encargado: <h5>  @item.Usuario.nombre </h5>
+            <div class="card card-cascade wider" style="width:300px; height:650px; margin-right:70px">
+
+                <div class="view view-cascade overlay">
+                    <img class="card-img-top" src="~/Content/Imagenes/Centro.png" alt="Card image cap">
+                    <a href="#!">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
                 </div>
-                <div class="card-body" style="text-align:center">
-                    Provincia:<h5>@item.provincia</h5>
-                </div>
-                <div class="card-body" style="text-align:center">
-                    Dirección: <h5>  @item.direccion </h5>
-                </div>
-                <div class="card-body" style="text-align: center">
-                    @Html.ActionLink("Detalles", "Details", "Centro", new { id = item.id }, htmlAttributes: new { @class = "btn btn-secondary btn-block" })
+
+                <div class="card-body card-body-cascade text-center">
+
+
+                    <h4 class="cinta">  <strong>@item.nombre</strong></h4>
+                    <br />
+                    <h5 class="blue-text pb-2">Encargado:<strong>@item.Usuario.nombre </strong></h5>
+                    <p class="card-text">  <br /> Dirección:<h5>@item.provincia   @item.direccion</h5>
+  
+                    <a class="px-2 fa-lg li-ic">@Html.ActionLink("Detalles", "Details", "Centro", new { id = item.id }, htmlAttributes: new { @class = "btn  btn-block", @style= "background-color:TOMATO; color:white" })</a>
                 </div>
             </div>
         }
-    </div>
+            </div>
 </div>
 
+<style typr="text/css">
+   .cinta {
+position:relative;
+width:310px;
+height:50px;
+margin-right:1000px;
+margin-left:-25px;
+text-align:center;
+border:1px solid darkblue;
+background-color: #E74C3C;
+background-size: 4px 4px;
+font-family:'Baskerville Old Face';
+color:CORNSILK
+}
+   .cinta:before {
+content:" ";
+position:absolute;
+display:block;
+width:0px;
+height:0px;
+top:11px;
+left:-51px;
+border-color:TOMATO TOMATO TOMATO transparent;
+border-style:solid;
+border-width:25px;
+}
 
+   .cinta:after {
+content:"";
+position:absolute;
+display:block;
+border-color:ORANGERED ORANGERED TOMATO TOMATO;
+border-style:solid;
+border-width:5px 10px 5px 10px;
+top:51px;
+left:-1px;
+}
+   .cinta span {
+text-transform:uppercase;
+font-family:arial;
+font-size:30px;
+font-weight:bold;
+line-height:50px;
+color: white;
+text-shadow: 1px 2px 3px grey;
+}
+.cinta span:before {
+content:" ";
+position:absolute;
+display:block;
+width:0px;
+height:0px;
+top:11px;
+right:-51px;
+border-color:OLIVEDRAB transparent OLIVEDRAB OLIVEDRAB;
+border-style:solid;
+border-width:25px;
+}
+.cinta span:after {
+content:"";
+position:absolute;
+display:block;
+border-color:darkblue OLIVEDRAB OLIVEDRAB darkblue;
+border-style:solid;
+border-width:5px 10px 5px 10px;
+top:51px;
+right:-1px;
+}
+    	</style>

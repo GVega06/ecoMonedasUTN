@@ -142,6 +142,7 @@
     <Content Include="Content\Imagenes\carusel2.jpg" />
     <Content Include="Content\Imagenes\carusel3.jpg" />
     <Content Include="Content\Imagenes\carusel4.jpg" />
+    <Content Include="Content\Imagenes\Centro.png" />
     <Content Include="Content\Imagenes\eco.jpg" />
     <Content Include="Content\Imagenes\mapa.jpg" />
     <Content Include="Content\Imagenes\loader.gif" />

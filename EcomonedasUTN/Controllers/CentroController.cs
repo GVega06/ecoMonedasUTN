@@ -243,14 +243,16 @@ namespace EcomonedasUTN.Controllers
 
         public ActionResult ListaCentros()
         {
+            ViewBag.Provincia = cargarProvinciasDropDownList();
             return View(db.Centro.ToList().Where(x => x.estado == true));
         }
 
-        public ActionResult filtrarCentrosAjax(string terminoBusqueda)
+        public ActionResult filtrarCentrosAjax(string provincia)
         {
-            if (terminoBusqueda != null)
+            ViewBag.Provincia = cargarProvinciasDropDownList();
+            if (provincia != null)
             {
-                var lista = db.Centro.Where(x => x.nombre.Contains(terminoBusqueda) || x.direccion.Contains(terminoBusqueda)) ;
+                var lista = db.Centro.Where(x => x.provincia.Equals(provincia) && x.estado == true);
                 return PartialView("_ListaCentros", lista.ToList());
             }
             return View();
