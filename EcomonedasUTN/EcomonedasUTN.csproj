@@ -144,6 +144,7 @@
     <Content Include="Content\Imagenes\carusel4.jpg" />
     <Content Include="Content\Imagenes\eco.jpg" />
     <Content Include="Content\Imagenes\mapa.jpg" />
+    <Content Include="Content\Imagenes\loader.gif" />
     <Content Include="Content\Imagenes\playa.jpg" />
     <Content Include="Content\Imagenes\Volcan.jpeg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -229,6 +230,7 @@
     <Compile Include="Controllers\EncCambioController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
+    <Compile Include="Controllers\OrdenController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -295,6 +297,9 @@
     <Content Include="Views\BilleteraVirtual\Index.cshtml" />
     <Content Include="Views\Cupon\ListaCupones.cshtml" />
     <Content Include="Views\Inicio\TodoPublico.cshtml" />
+    <Content Include="Views\Material\_MensajeCarrito.cshtml" />
+    <Content Include="Views\Orden\Index.cshtml" />
+    <Content Include="Views\Material\_ListaCarrito.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
