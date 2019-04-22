@@ -40,7 +40,7 @@
                     @Html.ActionLink("Detalles", "Details", "Cupon", new { id = @item.id }, new { @class = "btn btn-info btn-block" })
                     @if (usuario != null)
                     {
-                        @if (usuario.idRol == 3)
+                        if (usuario.idRol == 3)
                     {
                             @Html.ActionLink("Canjear", "", "", new { }, new { @class = "btn btn-success btn-block" })
                         }
