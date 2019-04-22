@@ -137,6 +137,14 @@ namespace EcomonedasUTN.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
+                System.Web.HttpContext.Current.Session["email"] = user.email;
+                System.Web.HttpContext.Current.Session["nombre"] = user.nombre;
+                System.Web.HttpContext.Current.Session["clave"] = user.clave;
+                System.Web.HttpContext.Current.Session["idRol"] = user.idRol;
+                System.Web.HttpContext.Current.Session["estado"] = user.estado;
+                System.Web.HttpContext.Current.Session["telefono"] = user.telefono;
+                System.Web.HttpContext.Current.Session["direccion"] = user.direccion;
+             
                 Session["session"] = user;
                 db.SaveChanges();
                 return RedirectToAction("Details");
@@ -181,7 +189,8 @@ namespace EcomonedasUTN.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
-                Session["session"] = user;
+                    Session["session"] = null;
+                    Session["session"] = user;
                 db.SaveChanges();
                 return RedirectToAction("Details");
             }
@@ -298,9 +307,6 @@ namespace EcomonedasUTN.Controllers
             return false;
         }
 
-
-
-
         public ActionResult InicioSesion()
         {
             return View();
@@ -320,28 +326,47 @@ namespace EcomonedasUTN.Controllers
                 return RedirectToAction("InicioSesion");
             }
 
-            if(user.idRol == 2)
+
+
+            if (user.email.Equals(email) && user.clave.Equals(clave))
             {
-                
+
+                if (user.estado == true)
+                {
+
+
+                    if (validaCentro(email)) { 
+                    System.Web.HttpContext.Current.Session["email"] = email;
+                    System.Web.HttpContext.Current.Session["nombre"] = user.nombre;
+                    System.Web.HttpContext.Current.Session["clave"] = clave;
+                    System.Web.HttpContext.Current.Session["idRol"] = user.idRol;
+                    System.Web.HttpContext.Current.Session["estado"] = user.estado;
+                    System.Web.HttpContext.Current.Session["telefono"] = user.telefono;
+                    System.Web.HttpContext.Current.Session["direccion"] = user.direccion;
+                    Session["session"] = user;
+                    return RedirectToAction("Index", "Inicio");
+
+                    }
+
+                    else
+                    {
+
+                        TempData["mensajeUser"] = "Centro de Acopio se encuentra desahilitado, contáctese con el administrador";
+                    }
+
+                }
+                else
+                {
+                    TempData["mensajeUser"] = "Usuario se encuentra inactivo";
+
+                }
             }
 
-            if (user.email.Equals(email) && user.clave.Equals(clave) && user.estado == true)
+            else
             {
-                System.Web.HttpContext.Current.Session["email"] = email;
-                System.Web.HttpContext.Current.Session["nombre"] = user.nombre;
-                System.Web.HttpContext.Current.Session["clave"] = clave;
-                System.Web.HttpContext.Current.Session["idRol"] = user.idRol;
-                System.Web.HttpContext.Current.Session["estado"] = user.estado;
-                System.Web.HttpContext.Current.Session["telefono"] = user.telefono;
-                System.Web.HttpContext.Current.Session["direccion"] = user.direccion;
-                Session["session"] = user;
-                return RedirectToAction("Index", "Inicio");
+                TempData["mensajeUser"] = "Usuario o contraseña incorrecta";
             }
 
-          
-
-
-            TempData["mensajeUser"] = "Usuario o contraseña incorrecta";
 
             if (TempData.ContainsKey("mensajeUser"))
             {
@@ -350,6 +375,30 @@ namespace EcomonedasUTN.Controllers
             return View(user);         
         }
 
+
+        public bool validaCentro(string email)
+        {
+            Usuario user = db.Usuario.Find(email);
+
+            if (user.idRol == 2)
+            {
+                var centro = db.Centro.Where(x => x.idUsuario.Equals(email));
+
+                foreach (var item in centro)
+                {
+                    if(item.estado == true)
+                    {
+                        return true;
+                    }
+
+                   if(item.estado == false)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
         private void LoadSessionObject()
         {
