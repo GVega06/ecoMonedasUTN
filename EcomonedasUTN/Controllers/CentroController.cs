@@ -19,7 +19,7 @@ namespace EcomonedasUTN.Controllers
         // GET: Centro
         public ActionResult Index()
         {
-            ViewBag.Provincia = cargarProvinciasDropDownList();
+           
             if (TempData.ContainsKey("mensaje"))
             {
                 ViewBag.Mensaje = TempData["mensaje"].ToString();
@@ -48,22 +48,10 @@ namespace EcomonedasUTN.Controllers
             return View(centro);
         }
 
-        // GET: Centro/Create
-        public ActionResult Create()
-        {
-
-            ViewBag.Provincia = cargarProvinciasDropDownList();
-            ViewBag.Usuario = cargarUsuarioDropDownList();
-            if (TempData.ContainsKey("mensajeCentro"))
-            {
-                ViewBag.MensajeCentro = TempData["mensajeCentro"].ToString();
-            }
-            return View();
-        }
-
+   
         private SelectList cargarUsuarioDropDownList(object selected = null)
         {
-            var listado = db.Usuario.OrderBy(x => x.nombre).Where(x => x.idRol ==2);
+            var listado = db.Usuario.OrderBy(x => x.nombre).Where(x => x.idRol == 2 && x.estado == true);
 
             return new SelectList(listado, "email", "nombre", selected);
         }
@@ -71,10 +59,21 @@ namespace EcomonedasUTN.Controllers
         private bool consultaCentro(string email)
         {
 
-            var lista= db.Centro.Where(x => x.idUsuario.Equals(email));
+            var lista = db.Centro.Where(x => x.idUsuario.Equals(email));
             return true;
         }
 
+        // GET: Centro/Create
+        public ActionResult Create()
+        {
+            if (TempData.ContainsKey("mensajeCentroEdita"))
+            {
+                ViewBag.MensajeCentroEdita = TempData["mensajeCentroEdita"].ToString();
+            }
+            ViewBag.Provincia = cargarProvinciasDropDownList();
+            ViewBag.Usuario = cargarUsuarioDropDownList();
+            return View();
+        }
 
         // POST: Centro/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -88,7 +87,14 @@ namespace EcomonedasUTN.Controllers
             {
                 if (consultaCentro(centro.idUsuario))
                 {
-                    TempData["mensajeCentro"] = "Este usuario ya tiene asignado un centro";
+                    ViewBag.Provincia = cargarProvinciasDropDownList();
+                    ViewBag.Usuario = cargarUsuarioDropDownList();
+                    TempData["mensajeCentroEdita"] = "Este usuario ya tiene asignado un centro";
+
+                    if (TempData.ContainsKey("mensajeCentroEdita"))
+                    {
+                        ViewBag.MensajeCentroEdita = TempData["mensajeCentroEdita"].ToString();
+                    }
                     return View(centro);
                 }
 
@@ -100,10 +106,7 @@ namespace EcomonedasUTN.Controllers
             ViewBag.Provincia = cargarProvinciasDropDownList();
             ViewBag.Usuario = cargarUsuarioDropDownList();
             TempData["mensaje"] = "No se pudo guadar el centro de acopio";
-            if (TempData.ContainsKey("mensajeCentro"))
-            {
-                ViewBag.MensajeCentro = TempData["mensajeCentro"].ToString();
-            }
+         
             return View(centro);
         }
 
@@ -125,8 +128,14 @@ namespace EcomonedasUTN.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Provincia = cargarProvinciasDropDownList();
+            ViewBag.Provincia = cargarProvinciasDropDownList(centro.provincia);
             ViewBag.Usuario = cargarUsuarioDropDownList();
+
+            if (TempData.ContainsKey("mensajeCentro"))
+            {
+                ViewBag.MensajeCentro = TempData["mensajeCentro"].ToString();
+            }
+
             return View(centro);
         }
 
@@ -135,17 +144,30 @@ namespace EcomonedasUTN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre,provincia,direccion,estado,idUsuario")] Centro centro)
+        public ActionResult Edit(Centro centro)
         {
 
-            if (consultaCentro(centro.idUsuario))
-            {
-                TempData["mensaje"] = "Este usuario ya tiene asignado un centro";
-                return View(centro);
-            }
+           //public ActionResult Edit([Bind(Include = "id,nombre,provincia,direccion,estado,idUsuario")] Centro centro)
 
             if (ModelState.IsValid)
             {
+                if (consultaCentro(centro.idUsuario))
+                {
+                    TempData["mensajeCentro"] = "Este usuario ya tiene asignado un centro";
+                    ViewBag.Usuario = cargarUsuarioDropDownList();
+                    ViewBag.Provincia = cargarProvinciasDropDownList();
+
+
+
+                    if (TempData.ContainsKey("mensajeCentro"))
+                    {
+                        ViewBag.MensajeCentro = TempData["mensajeCentro"].ToString();
+                    }
+
+                    return View(centro);
+
+                }
+
                 db.Entry(centro).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["mensaje"] = "Centro de Acopio modificado con éxito";
@@ -154,6 +176,7 @@ namespace EcomonedasUTN.Controllers
             TempData["mensaje"] = "No se pudo modificar el centro de acopio";
             ViewBag.Usuario = cargarUsuarioDropDownList();
             ViewBag.Provincia = cargarProvinciasDropDownList();
+      
             return View(centro);
         }
 
@@ -191,7 +214,7 @@ namespace EcomonedasUTN.Controllers
 
         private SelectList cargarProvinciasDropDownList(object selected = null)
         {
-           var lst = new List<SelectListItem>();    
+            var lst = new List<SelectListItem>();
             //De la siguiente manera llenamos manualmente,
             //Siendo el campo Text lo que ve el usuario y
             //el campo Value lo que en realidad vale nuestro valor
@@ -202,8 +225,8 @@ namespace EcomonedasUTN.Controllers
             lst.Add(new SelectListItem() { Text = "Guanacaste", Value = "Guanacaste" });
             lst.Add(new SelectListItem() { Text = "Puntarenas", Value = "Puntarenas" });
             lst.Add(new SelectListItem() { Text = "Limón", Value = "Limón" });
-  
-       
+
+
             return new SelectList(lst, "Value", "Text", selected);
         }
 
@@ -220,14 +243,14 @@ namespace EcomonedasUTN.Controllers
 
         public ActionResult ListaCentros()
         {
-            return View(db.Centro.ToList());
+            return View(db.Centro.ToList().Where(x => x.estado == true));
         }
 
         public ActionResult filtrarCentrosAjax(string terminoBusqueda)
         {
             if (terminoBusqueda != null)
             {
-                var lista = db.Centro.Where(x => x.nombre.Contains(terminoBusqueda) || x.direccion.Contains(terminoBusqueda) && x.estado.Equals("true")) ;
+                var lista = db.Centro.Where(x => x.nombre.Contains(terminoBusqueda) || x.direccion.Contains(terminoBusqueda)) ;
                 return PartialView("_ListaCentros", lista.ToList());
             }
             return View();

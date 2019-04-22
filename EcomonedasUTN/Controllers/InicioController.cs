@@ -19,5 +19,11 @@ namespace EcomonedasUTN.Controllers
             ViewBag.User = ViewBag.User;
             return View();
         }
+
+
+        public ActionResult TodoPublico()
+        {
+            return View();
+        }
     }
 }
