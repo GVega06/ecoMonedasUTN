@@ -41,6 +41,13 @@
                 @Html.ActionLink("Materiales","ListaMateriales", "Material", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
                 @Html.ActionLink("Centros de Acopio", "ListaCentros", "Centro", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
                 @Html.ActionLink("Cupones", "ListaCupones", "Cupon", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
+                @if (((Usuario)Session["session"]) != null)
+                {
+                    if (((Usuario)Session["session"]).idRol == 2)
+                    {
+                        @Html.ActionLink("Orden", "Index", "Orden", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
+                    }
+                }
             </ul>
             @if (((Usuario)Session["session"]) != null)
             {
@@ -81,8 +88,14 @@
             </button>
         </div>
     }    
+    <div id="mensajeCarrito">
+
+    </div>
 
     <div class="body-content">
+        <div class="container" id="cargando" style="display:none">
+            <img src="~/Content/Imagenes/loader.gif" alt="Cargando"/>
+        </div>
         @RenderBody()
         <hr />
         <footer style="text-align:center">

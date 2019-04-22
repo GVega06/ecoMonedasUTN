@@ -1,0 +1,84 @@
+﻿@using EcomonedasUTN.Models
+@{
+    List<CarritoCompras> materiales = Carrito.Instancia.Items;
+    var total = Carrito.Instancia.GetTotal();
+}
+
+<div id="carritoAjax">
+    <div class="card bg-light mb-12">
+        <div class="card-header">Materiales en la Orden</div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>
+                        <label>Material</label>
+                    </th>
+                    <th>
+                        <label>Cantidad</label>
+                    </th>
+
+                    <th>
+                        <label>Valor Unitario</label>
+                    </th>
+                    <th>
+                        <label>Subtotal</label>
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in materiales)
+                {
+                    <tr>
+                        <td>
+                            @item.Material.nombre
+                        </td>
+                        <td>
+                            @*Otra posible y mejor forma de hacerlo*@
+                            <input type="text" id="@item.elementoID" value="@item.Cantidad" class="form-control" onchange="CambiarCantidad(@item.elementoID)" />
+                            <script>
+                                    function CambiarCantidad(id) {
+                                        var cantidad = $('#' + id).val();
+                                        //alert(id + ' ' + cantidad);
+                                        //De acá hacer metodo ajax con jquery
+
+                                        var dataObject = JSON.stringify({
+                                            'terminoBusqueda': cantidad,
+                                            'id':id
+                                        })
+                                        var objeto = new Object();
+                                        objeto.terminoBusqueda = cantidad;
+                                        objeto.id = id;
+
+                                        var url = "@Url.Action("CambiarCantidad","Material")";
+                                        var data = {terminoBusqueda: cantidad, id: id};
+                                        $.post(url, data).done(function (data) {
+                                            $("#carritoAjax").html(data);
+                                        })
+                                    }
+                            </script>
+                        </td>
+
+                        <td>
+                            ₡@item.Material.precio
+                        </td>
+                        <td>
+                            ₡@(item.Material.precio * item.Cantidad)
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("Eliminar", "EliminarCarrito", "Material", new { id = item.Material.id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "carritoAjax", InsertionMode = InsertionMode.Replace }, htmlAttributes: new { @class = "btn btn-success btn-block" })
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="2"></td>
+                    <th>
+                        <label>Total</label>
+                    </th>
+                    <th>
+                        <label>₡@total</label>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
