@@ -130,12 +130,20 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Imagenes\1.jpg" />
+    <Content Include="Content\Imagenes\10.jpeg" />
+    <Content Include="Content\Imagenes\11.jpg" />
     <Content Include="Content\Imagenes\2.jpg" />
     <Content Include="Content\Imagenes\3.jpg" />
     <Content Include="Content\Imagenes\analitica.svg" />
     <Content Include="Content\Imagenes\banco.svg" />
     <Content Include="Content\Imagenes\Bosque.jpg" />
     <Content Include="Content\Imagenes\cambiar.svg" />
+    <Content Include="Content\Imagenes\carusel1.jpg" />
+    <Content Include="Content\Imagenes\carusel2.jpg" />
+    <Content Include="Content\Imagenes\carusel3.jpg" />
+    <Content Include="Content\Imagenes\carusel4.jpg" />
+    <Content Include="Content\Imagenes\eco.jpg" />
+    <Content Include="Content\Imagenes\mapa.jpg" />
     <Content Include="Content\Imagenes\playa.jpg" />
     <Content Include="Content\Imagenes\Volcan.jpeg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -194,6 +202,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\style.css" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -285,6 +294,7 @@
     <Content Include="Views\Cupon\Cupon.cshtml" />
     <Content Include="Views\BilleteraVirtual\Index.cshtml" />
     <Content Include="Views\Cupon\ListaCupones.cshtml" />
+    <Content Include="Views\Inicio\TodoPublico.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
