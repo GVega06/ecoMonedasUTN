@@ -204,9 +204,39 @@ namespace EcomonedasUTN.Controllers
             return View();
         }
 
-        public void AgregarCarrito(int id)
+        public ActionResult AgregarCarrito(int id)
         {
             Carrito.Instancia.AgregarItem(id);
+            Material m = db.Material.Find(id);
+            string texto = m.nombre + " ";
+            texto += "se ha añadido a la orden correctamente";
+            return PartialView("_MensajeCarrito",texto);
+        }
+
+        public ActionResult EliminarCarrito(int id)
+        {
+            Carrito.Instancia.EliminarItem(id);
+            return PartialView("_ListaCarrito");
+        }
+
+        public ActionResult cambiarCantidad(Ajax objeto)
+        {
+            Carrito.Instancia.SetItemCantidad(Convert.ToInt32(objeto.id), Convert.ToInt32(objeto.terminoBusqueda));
+            return PartialView("_ListaCarrito");
+        }
+
+        public class Ajax
+        {
+            public string terminoBusqueda
+            {
+                get;
+                set;
+            }
+            public string id
+            {
+                get;
+                set;
+            }
         }
     }
 }
