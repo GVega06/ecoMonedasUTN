@@ -7,7 +7,7 @@
 }
 
 <div class="container">
-    <h2>Cupones</h2>
+    <h2 style="margin-top:30px">Cupones</h2>
 
     @using (Ajax.BeginForm("filtrarCuponesAjax", "Cupon", new AjaxOptions
     {
@@ -28,7 +28,7 @@
         </div>
     }
 
-    <div id="divCentro" class="row">
+    <div id="divCupon" class="row">
         @foreach (var item in Model)
         {
             <div class="card bg-light mb-3" style="max-width: 20rem;margin-right:40px;margin-left:45px">

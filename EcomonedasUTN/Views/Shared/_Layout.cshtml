@@ -71,14 +71,29 @@
                         </div>
                     </li>
                 </ul>
-            }
-            else
-            {
-                <ul class="navbar-nav ml-auto" style="display:inline">
-                    <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Inicio Sesión", "InicioSesion", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline;color:white" })
-                </ul>
-            }
-        </div>
+                               }
+                               else
+                               {
+                           
+                              <ul class="navbar-nav ml-auto"  style="display:inline">
+
+                                  @*<div class="btn-group dropleft">
+                                      <button type="button" class="btn btn-block dropdown-toggle; fa fa-user-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        
+                                      </button>
+                                      <div class="dropdown-menu">
+                                        @Html.ActionLink("Inicio Sesión", "InicioSesion", "Usuario", new { }, htmlAttributes: new {@class= "dropdown-item" })
+                                          @Html.ActionLink("Registrarse", "Create", "Usuario", new { }, htmlAttributes: new { @class = "dropdown-item" })
+                                      </div>
+                                  </div>*@
+                                   
+
+                                 <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Inicio Sesión", "InicioSesion", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline;color:white" })
+                                 
+                                   <li class="fa fa-user-plus" style="display:inline"></li>   @Html.ActionLink("Registrarse", "Create", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline;color:white" })
+                              </ul>
+                                   }
+</div>
     </nav>
     @if (ViewBag.Mensaje != "" && ViewBag.Mensaje != null)
     {
