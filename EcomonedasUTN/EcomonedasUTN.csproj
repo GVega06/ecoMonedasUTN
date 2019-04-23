@@ -247,7 +247,6 @@
     <Compile Include="Models\EncCambio.cs" />
     <Compile Include="Models\historial.cs" />
     <Compile Include="Models\Material.cs" />
-    <Compile Include="Models\Provincia.cs" />
     <Compile Include="Models\Reporte.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -303,6 +302,8 @@
     <Content Include="Views\Material\_ListaCarrito.cshtml" />
     <Content Include="Views\Cupon\_ListaCupon.cshtml" />
     <Content Include="Views\Orden\_cliente.cshtml" />
+    <Content Include="Views\Cupon\reporteHistorial.cshtml" />
+    <Content Include="Views\Cupon\reporteEcoMonedasGeneradas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -321,7 +322,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\CuponCanje.rdlc" />
+    <EmbeddedResource Include="Reportes\reporteEcomonedasGeneradas.rdlc" />
     <EmbeddedResource Include="Reportes\reporteEstadistica.rdlc" />
+    <EmbeddedResource Include="Reportes\reporteHistorial.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

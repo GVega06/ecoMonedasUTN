@@ -4,7 +4,8 @@
 
 }
 
-
-@using ReportViewerForMvc
-@Html.ReportViewer(ViewBag.ReportViewer as
-    Microsoft.Reporting.WebForms.ReportViewer,htmlAttributes: new { @style = "margin-left:auto;margin-right:auto" })
+<div class="container">
+    @using ReportViewerForMvc
+    @Html.ReportViewer(ViewBag.ReportViewer as
+    Microsoft.Reporting.WebForms.ReportViewer, htmlAttributes: new { @style = "margin-left:auto;margin-right:auto" })
+</div>

@@ -168,21 +168,57 @@ namespace EcomonedasUTN.Controllers
         }
 
 
-        public ActionResult Cupon()
+        public ActionResult Cupon(int id)
         {
+
+            Usuario user = ((Usuario)Session["session"]);
+            BilleteraVirtual billetera = db.BilleteraVirtual.Where(x => x.idUsuario.Equals(user.email)).First();
+
+            historial historia = new historial();
+            CuponesDisponibles cuponD = new CuponesDisponibles();
+            Cupon cupon = db.Cupon.Find(id);
+
+
+            if (cupon.valor <= billetera.total)
+            {
+                historia.saldoAnterior = billetera.total;
+                historia.cantMonedasCambiadas += cupon.valor;
+                historia.saldoAnterior = billetera.total;
+                historia.fecha = DateTime.Now;
+                historia.idUsuario = user.email;
+                historia.idCupon = cupon.id;
+                cuponD.idUsuario = user.email;
+                cuponD.idCupon = cupon.id;
+                cuponD.usado = true;
+                cuponD.fechaAdquirido = historia.fecha;
+                cuponD.idUnico = cupon.id;
+                billetera.total -= cupon.valor;
+                db.CuponesDisponibles.Add(cuponD);
+                db.historial.Add(historia);
+                db.Entry(billetera).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+            else
+            {
+                TempData["mensajeCanje"] = "No tiene eco monedas suficientes";
+                return RedirectToAction("ListaCupones");
+            }
+
             Random ran = new Random();
-            string posibles = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890123456789";          
+            string posibles = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890123456789";
             int longitud = posibles.Length;
             char letra;
             int longitudnuevacadena = 16;
             string nuevacadena = "";
             for (int i = 0; i < longitudnuevacadena; i++)
             {
-               letra = posibles[ran.Next(longitud)];
-               nuevacadena += letra.ToString();
+                letra = posibles[ran.Next(longitud)];
+                nuevacadena += letra.ToString();
             }
 
-            var query = from r in db.CuponesDisponibles
+            var query = from r in db.CuponesDisponibles.Where(x => x.idCupon == id)
                         join t in db.Usuario on r.idUsuario equals t.email
                         join c in db.Cupon on r.idCupon equals c.id
                         select new
@@ -194,12 +230,19 @@ namespace EcomonedasUTN.Controllers
                             codigo = nuevacadena
 
                         };
+
+
+            
             ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "CuponCanje.rdlc");
             return View();
         }
         
         public ActionResult ListaCupones()
         {
+           if (TempData.ContainsKey("mensajeCanje"))
+            {
+                ViewBag.MensajeCanje = TempData["mensajeCanje"].ToString();
+            }
             return View(db.Cupon.Where(x => x.estado == true).ToList());
         }
 
@@ -214,5 +257,50 @@ namespace EcomonedasUTN.Controllers
             }
             return View();
         }
-    }  
+
+        public ActionResult reporteHistorial()
+        {
+            Usuario user = ((Usuario)Session["session"]);
+
+            var query = from r in db.historial.Where(x => x.idUsuario.Equals(user.email))
+                        join t in db.Usuario on r.idUsuario equals t.email
+                        join c in db.Cupon on r.idCupon equals c.id
+                        select new
+                        {
+                            c.nombre,
+                            r.fecha,
+                            r.cantMonedasCambiadas,
+                            r.saldoAnterior,
+                            c.valor,
+                            usuario = t.nombre,
+                           
+                        };
+
+
+
+            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteHistorial.rdlc");
+            return View();
+        }
+
+        public ActionResult reporteEcoMonedasGeneradas()
+        {
+            Usuario user = ((Usuario)Session["session"]);
+
+            var query = from r in db.historial.Where(x => x.idUsuario.Equals(user.email))
+                        
+                        select new
+                        {                       
+                            r.cantMonedasCambiadas,
+                            r.saldoAnterior,
+                            Total = r.cantMonedasCambiadas + r.saldoAnterior                        
+
+                        };
+
+
+
+            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteEcomonedasGeneradas.rdlc");
+            return View();
+        }
+    }
+    
 }
