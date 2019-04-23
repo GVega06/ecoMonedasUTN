@@ -302,6 +302,7 @@
     <Content Include="Views\Orden\Index.cshtml" />
     <Content Include="Views\Material\_ListaCarrito.cshtml" />
     <Content Include="Views\Cupon\_ListaCupon.cshtml" />
+    <Content Include="Views\Orden\_cliente.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
