@@ -182,9 +182,6 @@ namespace EcomonedasUTN.Controllers
                nuevacadena += letra.ToString();
             }
 
-
-
-
             var query = from r in db.CuponesDisponibles
                         join t in db.Usuario on r.idUsuario equals t.email
                         join c in db.Cupon on r.idCupon equals c.id
@@ -204,6 +201,18 @@ namespace EcomonedasUTN.Controllers
         public ActionResult ListaCupones()
         {
             return View(db.Cupon.Where(x => x.estado == true).ToList());
+        }
+
+        public ActionResult filtrarCuponesAjax(string terminoBusqueda)
+
+
+        {
+            if (terminoBusqueda != null)
+            {
+                var lista = db.Cupon.Where(x => x.nombre.Contains(terminoBusqueda) || x.descripcion.Contains(terminoBusqueda));
+                return PartialView("_ListaCupon", lista.ToList());
+            }
+            return View();
         }
     }  
 }
