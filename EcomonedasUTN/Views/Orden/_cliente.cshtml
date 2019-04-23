@@ -1,0 +1,11 @@
+﻿@if (Session["cliente"] != null)
+{
+    <h4>Orden de:</h4>
+    <input class="form-control" disabled="disabled" value="@Session["cliente"]" />
+    @Html.ActionLink("Eliminar", "EliminarCliente", "Orden", htmlAttributes: new { @class = "btn btn-danger", @style = "margin-top: 20px" })
+}
+else
+{
+    <h4>Orden de:</h4>
+    <input class="form-control" disabled="disabled" value="Sin cliente seleccionado" />
+}
