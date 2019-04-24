@@ -136,35 +136,6 @@ namespace EcomonedasUTN.Controllers
             return View(material);
         }
 
-        // GET: Material/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                //Respuesta al usuario
-                TempData["mensaje"] = "Especifique un material reciclable";
-                return RedirectToAction("Index");
-            }
-            Material material = db.Material.Find(id);
-            if (material == null)
-            {
-                TempData["mensaje"] = "No existe el material reciclable";
-                return RedirectToAction("Index");
-            }
-            return View(material);
-        }
-
-        // POST: Material/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Material material = db.Material.Find(id);
-            db.Material.Remove(material);
-            db.SaveChanges();
-            TempData["mensaje"] = "Material reciclable eliminado con éxito";
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {
