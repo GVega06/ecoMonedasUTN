@@ -87,10 +87,10 @@ namespace EcomonedasUTN.Controllers
                 }
 
                 Usuario usuario = db.Usuario.Find(Session["cliente"].ToString());
-                BilleteraVirtual v = db.BilleteraVirtual.Where(x => x.idUsuario == usuario.email).First();
+                BilleteraVirtual v = db.BilleteraVirtual.Where(x => x.idUsuario.Equals(usuario.email)).First();
                 v.total += encabezado.total;
 
-                db.BilleteraVirtual.Add(v);
+                db.Entry(v).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 Carrito.Instancia.limpiarCarrito();
                 TempData["mensaje"] = "Orden procesada correctamente";
