@@ -128,36 +128,6 @@ namespace EcomonedasUTN.Controllers
             return View(cupon);
         }
 
-        // GET: Cupon/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                //Respuesta al usuario
-                TempData["mensaje"] = "Especifique un cupón";
-                return RedirectToAction("Index");
-            }
-            Cupon cupon = db.Cupon.Find(id);
-            if (cupon == null)
-            {
-                TempData["mensaje"] = "No existe el cupón";
-                return RedirectToAction("Index");
-            }
-            return View(cupon);
-        }
-
-        // POST: Cupon/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Cupon cupon = db.Cupon.Find(id);
-            db.Cupon.Remove(cupon);
-            db.SaveChanges();
-            TempData["mensaje"] = "Cupón eliminado con éxito";
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
