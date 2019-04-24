@@ -24,7 +24,7 @@
             <div class="card-header" style="text-align:center">Ecomonedas Canjeadas</div>
             <div class="card-body">
                 <img src="~/Content/Imagenes/banco.svg" />
-                <h1 style="text-align:center;margin-top:20px">₡0</h1>
+                <h1 style="text-align:center;margin-top:20px"> ₡@ViewBag.Canje</h1>
                 <p class="card-text">Ecomonedas canjeadas por cupones, puedes ver un historial de todos tus canjes</p>
                 @Html.ActionLink("Historial", "reporteHistorial", "Cupon", new { }, new { @class = "btn btn-info btn-block" })
             </div>
@@ -33,7 +33,7 @@
             <div class="card-header" style="text-align:center">Ecomonedas Generadas</div>
             <div class="card-body">
                 <img src="~/Content/Imagenes/analitica.svg" />
-                <h1 style="text-align:center;margin-top:20px">₡0</h1>
+                <h1 style="text-align:center;margin-top:20px">₡@ViewBag.TotalC</h1>
                 <p class="card-text">Ecomonedas Generadas en esta cuenta, puedes ver un historial de todos tus ecomonedas generadas </p>
                 @Html.ActionLink("Historial", "reporteEcoMonedasGeneradas", "Cupon", new { }, new { @class = "btn btn-info btn-block" })
             </div>

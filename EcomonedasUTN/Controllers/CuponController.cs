@@ -193,9 +193,11 @@ namespace EcomonedasUTN.Controllers
                 cuponD.fechaAdquirido = historia.fecha;
                 cuponD.idUnico = cupon.id;
                 billetera.total -= cupon.valor;
+                cupon.estado = false;
                 db.CuponesDisponibles.Add(cuponD);
                 db.historial.Add(historia);
                 db.Entry(billetera).State = EntityState.Modified;
+                db.Entry(cupon).State = EntityState.Modified;
                 db.SaveChanges();
             }
 
