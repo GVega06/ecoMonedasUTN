@@ -44,18 +44,26 @@
             <img width="300" src="@Url.Action("getImage", "Material", new {id=Model.id})">
         </dd>
     </dl>
-    @if (((Usuario)Session["session"]).idRol == 1)
+    @if (((Usuario)Session["session"]) != null)
     {
+        if (((Usuario)Session["session"]).idRol == 1)
+        {
         <p>
             @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-info" }) |
-            @Html.ActionLink("Regresar al Mantenimiento", "Index","Material", new { }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Regresar al Mantenimiento", "Index", "Material", new { }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Regresar a la Lista", "ListaMateriales", "Material", new { }, new { @class = "btn btn-info" })
+        </p>
+        }
+      
+    }
+
+    else
+    {
+        <p>
             @Html.ActionLink("Regresar a la Lista", "ListaMateriales", "Material", new { }, new { @class = "btn btn-info" })
         </p>
     }
-    else
-    {
-        @Html.ActionLink("Regresar a la Lista", "ListaMateriales", "Material", new { }, new { @class = "btn btn-info" })
-    }
+
 
 
 </div>

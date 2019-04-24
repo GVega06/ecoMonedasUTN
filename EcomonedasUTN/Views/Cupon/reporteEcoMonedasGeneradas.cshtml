@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "reporteEcoMonedasGeneradas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 style="margin-top:40px">Historial de cupones canjeados</h2>
+
+    <nav class="nav">
+
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Eco Moneda</a>
+        @Html.ActionLink("Inicio", "Index", "Inicio", new { }, new { @class = "nav-link" })
+        @Html.ActionLink("Canjear", "ListaCupones", "Cupon", new { }, new { @class = "nav-link" })
+
+
+    </nav>
+
+    <div style="margin-top:30px; width:100%">
+
+        @using ReportViewerForMvc
+        @Html.ReportViewer(ViewBag.ReportViewer as
+    Microsoft.Reporting.WebForms.ReportViewer, htmlAttributes: new { @style = "margin-left:auto;margin-right:auto" })
+    </div>
+</div>

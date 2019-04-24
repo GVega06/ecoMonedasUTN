@@ -71,14 +71,17 @@
                         </div>
                     </li>
                 </ul>
-            }
-            else
-            {
-                <ul class="navbar-nav ml-auto" style="display:inline">
-                    <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Inicio Sesión", "InicioSesion", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline;color:white" })
-                </ul>
-            }
-        </div>
+                               }
+                               else
+                               {
+                           
+                              <ul class="navbar-nav ml-auto"  style="display:inline">                                   
+
+                                 <li class="fa fa-user-circle" style="display:inline"></li> @Html.ActionLink("Inicio Sesión", "InicioSesion", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline;color:white" })
+                                   <li class="fa fa-user-plus" style="display:inline"></li>   @Html.ActionLink("Registrarse", "Create", "Usuario", new { }, htmlAttributes: new { @class = "nav-link", @style = "display: inline;color:white" })
+                              </ul>
+                                   }
+</div>
     </nav>
     @if (ViewBag.Mensaje != "" && ViewBag.Mensaje != null)
     {

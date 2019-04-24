@@ -415,7 +415,7 @@ namespace EcomonedasUTN.Controllers
         public ActionResult CerrarSession()
         {
             Session["session"] = null;
-            return Redirect("InicioSesion");
+            return RedirectToAction("TodoPublico", "Inicio");
         }
 
     }

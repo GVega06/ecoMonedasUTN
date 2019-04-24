@@ -47,16 +47,19 @@
         </dd>
 
     </dl>
-    @if (((Usuario)Session["session"]).idRol == 1)
-    {
+   @if (((Usuario)Session["session"]) != null)
+   {
+       if (((Usuario)Session["session"]).idRol == 1)
+       {
         <p>
             @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-info" }) |
             @Html.ActionLink("Regresar al Mantenimiento", "Index", "Centro", new { }, new { @class = "btn btn-info" }) |
             @Html.ActionLink("Regresar a la Lista", "ListaCentros", "Centro", new { }, new { @class = "btn btn-info" })
         </p>
-    }
-    else
-    {
+       }
+   }
+   else
+   {
         @Html.ActionLink("Regresar a la Lista", "ListaCentros", "Centro", new { }, new { @class = "btn btn-info" })
     }
 </div>

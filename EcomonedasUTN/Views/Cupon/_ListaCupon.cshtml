@@ -1,0 +1,15 @@
+﻿@model  IEnumerable<EcomonedasUTN.Models.Cupon>
+
+@foreach (var item in Model)
+{
+    <div class="card bg-light mb-3" style="max-width: 20rem;margin-right:40px;margin-left:45px">
+        <div class="card-header" style="text-align:center">@item.nombre</div>
+        <img width="300" src="@Url.Action("getImage", "Cupon", new {id= item.id})">
+        <div class="card-body">
+            <p style="text-align:center">@item.descripcion</p>
+            <h1 style="text-align:center;margin-top:20px">₡@item.valor</h1>
+            @Html.ActionLink("Detalles", "Details", "Cupon", new { id = @item.id }, new { @class = "btn btn-info btn-block" })
+         
+        </div>
+    </div>
+}
