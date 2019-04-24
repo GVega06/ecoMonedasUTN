@@ -16,7 +16,7 @@
             <div class="card-body">
                 <img src="~/Content/Imagenes/cambiar.svg" />
                 <h1 style="text-align:center;margin-top:20px">₡@Model.total</h1>
-                <p class="card-text">Ecomonedas disponible para canjear por cupones aplicables en una variedad de tiendas en todo el pais</p>
+                <p class="card-text">Ecomonedas disponible para canjear por cupones aplicables en una variedad de tiendas en todo el país</p>
                 @Html.ActionLink("Canjear","ListaCupones","Cupon",new { },new {@class = "btn btn-info btn-block" })
             </div>
         </div>
@@ -24,18 +24,18 @@
             <div class="card-header" style="text-align:center">Ecomonedas Canjeadas</div>
             <div class="card-body">
                 <img src="~/Content/Imagenes/banco.svg" />
-                <h1 style="text-align:center;margin-top:20px">₡0</h1>
+                <h1 style="text-align:center;margin-top:20px"> ₡@ViewBag.Canje</h1>
                 <p class="card-text">Ecomonedas canjeadas por cupones, puedes ver un historial de todos tus canjes</p>
-                @Html.ActionLink("Historial", "", "", new { }, new { @class = "btn btn-info btn-block" })
+                @Html.ActionLink("Historial", "reporteHistorial", "Cupon", new { }, new { @class = "btn btn-info btn-block" })
             </div>
         </div>
         <div class="card bg-light mb-3" style="max-width: 20rem;">
             <div class="card-header" style="text-align:center">Ecomonedas Generadas</div>
             <div class="card-body">
                 <img src="~/Content/Imagenes/analitica.svg" />
-                <h1 style="text-align:center;margin-top:20px">₡0</h1>
+                <h1 style="text-align:center;margin-top:20px">₡@ViewBag.TotalC</h1>
                 <p class="card-text">Ecomonedas Generadas en esta cuenta, puedes ver un historial de todos tus ecomonedas generadas </p>
-                @Html.ActionLink("Historial", "", "", new { }, new { @class = "btn btn-info btn-block" })
+                @Html.ActionLink("Historial", "reporteEcoMonedasGeneradas", "Cupon", new { }, new { @class = "btn btn-info btn-block" })
             </div>
         </div>
     </div>

@@ -58,6 +58,52 @@ inner join Usuario on CuponesDisponibles.idUsuario = Usuario.email
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable3TableAdapter" GeneratorDataComponentClassName="DataTable3TableAdapter" Name="DataTable3" UserDataComponentName="DataTable3TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ecoMonedaModel (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select historial.saldoAnterior, historial.fecha, historial.cantMonedasCambiadas,
+Cupon.nombre, Cupon.valor,
+Usuario.nombre as 'usuario' from historial 
+inner join Cupon on historial.idCupon = Cupon.id
+inner join Usuario on historial.idUsuario = Usuario.email</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="saldoAnterior" DataSetColumn="saldoAnterior" />
+              <Mapping SourceColumn="fecha" DataSetColumn="fecha" />
+              <Mapping SourceColumn="cantMonedasCambiadas" DataSetColumn="cantMonedasCambiadas" />
+              <Mapping SourceColumn="nombre" DataSetColumn="nombre" />
+              <Mapping SourceColumn="valor" DataSetColumn="valor" />
+              <Mapping SourceColumn="usuario" DataSetColumn="usuario" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="historialTableAdapter" GeneratorDataComponentClassName="historialTableAdapter" Name="historial" UserDataComponentName="historialTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ecoMonedaModel (Web.config)" DbObjectName="ecoMonedas.dbo.historial" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select historial.cantMonedasCambiadas, historial.saldoAnterior, sum(cantMonedasCambiadas+ saldoAnterior) as 'Total' from historial
+group by historial.cantMonedasCambiadas, historial.saldoAnterior
+
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="cantMonedasCambiadas" DataSetColumn="cantMonedasCambiadas" />
+              <Mapping SourceColumn="saldoAnterior" DataSetColumn="saldoAnterior" />
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -115,6 +161,39 @@ inner join Usuario on CuponesDisponibles.idUsuario = Usuario.email
                 </xs:simpleType>
               </xs:element>
               <xs:element name="codigo" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columncodigo" msprop:Generator_ColumnPropNameInRow="codigo" msprop:Generator_ColumnPropNameInTable="codigoColumn" msprop:Generator_UserColumnName="codigo" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable3" msprop:Generator_TableClassName="DataTable3DataTable" msprop:Generator_TableVarName="tableDataTable3" msprop:Generator_RowChangedName="DataTable3RowChanged" msprop:Generator_TablePropName="DataTable3" msprop:Generator_RowDeletingName="DataTable3RowDeleting" msprop:Generator_RowChangingName="DataTable3RowChanging" msprop:Generator_RowEvHandlerName="DataTable3RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable3RowDeleted" msprop:Generator_RowClassName="DataTable3Row" msprop:Generator_UserTableName="DataTable3" msprop:Generator_RowEvArgName="DataTable3RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="saldoAnterior" msprop:Generator_ColumnVarNameInTable="columnsaldoAnterior" msprop:Generator_ColumnPropNameInRow="saldoAnterior" msprop:Generator_ColumnPropNameInTable="saldoAnteriorColumn" msprop:Generator_UserColumnName="saldoAnterior" type="xs:double" />
+              <xs:element name="fecha" msprop:Generator_ColumnVarNameInTable="columnfecha" msprop:Generator_ColumnPropNameInRow="fecha" msprop:Generator_ColumnPropNameInTable="fechaColumn" msprop:Generator_UserColumnName="fecha" type="xs:dateTime" />
+              <xs:element name="cantMonedasCambiadas" msprop:Generator_ColumnVarNameInTable="columncantMonedasCambiadas" msprop:Generator_ColumnPropNameInRow="cantMonedasCambiadas" msprop:Generator_ColumnPropNameInTable="cantMonedasCambiadasColumn" msprop:Generator_UserColumnName="cantMonedasCambiadas" type="xs:double" />
+              <xs:element name="nombre" msprop:Generator_ColumnVarNameInTable="columnnombre" msprop:Generator_ColumnPropNameInRow="nombre" msprop:Generator_ColumnPropNameInTable="nombreColumn" msprop:Generator_UserColumnName="nombre">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="valor" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_UserColumnName="valor" type="xs:double" />
+              <xs:element name="usuario" msprop:Generator_ColumnVarNameInTable="columnusuario" msprop:Generator_ColumnPropNameInRow="usuario" msprop:Generator_ColumnPropNameInTable="usuarioColumn" msprop:Generator_UserColumnName="usuario">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="historial" msprop:Generator_TableClassName="historialDataTable" msprop:Generator_TableVarName="tablehistorial" msprop:Generator_TablePropName="historial" msprop:Generator_RowDeletingName="historialRowDeleting" msprop:Generator_RowChangingName="historialRowChanging" msprop:Generator_RowEvHandlerName="historialRowChangeEventHandler" msprop:Generator_RowDeletedName="historialRowDeleted" msprop:Generator_UserTableName="historial" msprop:Generator_RowChangedName="historialRowChanged" msprop:Generator_RowEvArgName="historialRowChangeEvent" msprop:Generator_RowClassName="historialRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cantMonedasCambiadas" msprop:Generator_ColumnVarNameInTable="columncantMonedasCambiadas" msprop:Generator_ColumnPropNameInRow="cantMonedasCambiadas" msprop:Generator_ColumnPropNameInTable="cantMonedasCambiadasColumn" msprop:Generator_UserColumnName="cantMonedasCambiadas" type="xs:double" />
+              <xs:element name="saldoAnterior" msprop:Generator_ColumnVarNameInTable="columnsaldoAnterior" msprop:Generator_ColumnPropNameInRow="saldoAnterior" msprop:Generator_ColumnPropNameInTable="saldoAnteriorColumn" msprop:Generator_UserColumnName="saldoAnterior" type="xs:double" />
+              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:double" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

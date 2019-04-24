@@ -20,7 +20,7 @@ namespace EcomonedasUTN.Controllers
             }
             var lista = db.BilleteraVirtual.Where(x => x.idUsuario.Equals(user.email));
             BilleteraVirtual v = null;
-
+           var h = db.historial.Where(x => x.idUsuario.Equals(user.email));
             foreach(BilleteraVirtual item in lista)
             {
                 if (item.idUsuario.Equals(user.email))
@@ -36,6 +36,20 @@ namespace EcomonedasUTN.Controllers
                 db.BilleteraVirtual.Add(v);
                 db.SaveChanges();
             }
+
+
+            double canje = 0;
+            double totalCanjes = 0;
+            foreach (var item in h)
+            {
+                
+                totalCanjes = item.cantMonedasCambiadas + item.saldoAnterior;
+                canje += item.cantMonedasCambiadas;
+                ViewBag.TotalC = totalCanjes;
+                ViewBag.Canje = canje;
+            }
+
+
             return View(v);
         }
 

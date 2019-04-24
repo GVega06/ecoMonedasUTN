@@ -4,9 +4,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Cupón</h2>
+<h2 style="margin-top:30px"> Cupón</h2>
+<nav class="nav">
 
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Eco Moneda</a>
+    @Html.ActionLink("Inicio", "Index", "Inicio", new { }, new { @class = "nav-link" })
+    @Html.ActionLink("Canjear", "ListaCupones", "Cupon", new { }, new { @class = "nav-link" })
+
+
+</nav>
+
+<div style="margin-top:30px">
 
 @using ReportViewerForMvc
 @Html.ReportViewer(ViewBag.ReportViewer as
     Microsoft.Reporting.WebForms.ReportViewer, htmlAttributes: new { @style = "margin-left:auto;margin-right:auto" })
+</div>

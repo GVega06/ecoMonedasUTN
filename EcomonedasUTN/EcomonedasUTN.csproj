@@ -58,6 +58,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
       <Private>True</Private>
@@ -211,7 +214,9 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="SqlServerTypes\x64\SqlServerSpatial110.dll" />
     <Content Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -247,7 +252,6 @@
     <Compile Include="Models\EncCambio.cs" />
     <Compile Include="Models\historial.cs" />
     <Compile Include="Models\Material.cs" />
-    <Compile Include="Models\Provincia.cs" />
     <Compile Include="Models\Reporte.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -303,6 +307,8 @@
     <Content Include="Views\Material\_ListaCarrito.cshtml" />
     <Content Include="Views\Cupon\_ListaCupon.cshtml" />
     <Content Include="Views\Orden\_cliente.cshtml" />
+    <Content Include="Views\Cupon\reporteHistorial.cshtml" />
+    <Content Include="Views\Cupon\reporteEcoMonedasGeneradas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -321,7 +327,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reportes\CuponCanje.rdlc" />
+    <EmbeddedResource Include="Reportes\reporteEcomonedasGeneradas.rdlc" />
     <EmbeddedResource Include="Reportes\reporteEstadistica.rdlc" />
+    <EmbeddedResource Include="Reportes\reporteHistorial.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
