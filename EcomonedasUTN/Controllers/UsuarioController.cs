@@ -63,7 +63,7 @@ namespace EcomonedasUTN.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "email,nombre,clave,telefono,direccion")] Usuario usuario, string provincia, string repetirClave)
         {
-
+            BilleteraVirtual billetera = new BilleteraVirtual();
             usuario.direccion = provincia + " " + usuario.direccion;
             usuario.idRol = 3;
             usuario.estado = true;
@@ -74,6 +74,9 @@ namespace EcomonedasUTN.Controllers
                     if (!consulta(usuario.email))
                     {
 
+                        billetera.idUsuario = usuario.email;
+                        billetera.total = 0;
+                        db.BilleteraVirtual.Add(billetera);
                         db.Usuario.Add(usuario);
                         db.SaveChanges();
                         Session["session"] = usuario;
