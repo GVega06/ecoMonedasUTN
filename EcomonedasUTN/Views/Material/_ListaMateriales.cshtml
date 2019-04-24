@@ -1,4 +1,8 @@
 ﻿@model  IEnumerable<EcomonedasUTN.Models.Material>
+@using EcomonedasUTN.Models
+@{ 
+    Usuario usuario = ((Usuario)Session["session"]);
+}
 
 @foreach (var item in Model)
 {
@@ -10,6 +14,13 @@
         </div>
         <div class="card-body" style="text-align: center">
             @Html.ActionLink("Detalles", "Details", "Material", new { id = item.id }, htmlAttributes: new { @class = "btn btn-info btn-block" })
+            @if (usuario != null)
+            {
+                if (usuario.idRol == 2)
+                {
+                    @Ajax.ActionLink("Agregar a OC", "AgregarCarrito", new { id = item.id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mensajeCarrito", InsertionMode = InsertionMode.Replace }, htmlAttributes: new { @class = "btn btn-success btn-block" })
+                }
+            }
         </div>
     </div>
 }
