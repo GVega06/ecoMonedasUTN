@@ -2,7 +2,7 @@
 
 @{
     var db = new ecoMonedaModel();
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Orden";
     var lista = db.EncCambio;
     EncCambio f = null;
 
@@ -12,7 +12,7 @@
         b = true;
     }
     if(b){
-        f = lista.Last();
+        //f = lista.Last();
     }
     var index = 0;
     if (f == null)
