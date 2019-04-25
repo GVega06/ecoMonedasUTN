@@ -259,18 +259,20 @@ namespace EcomonedasUTN.Controllers
             Usuario user = ((Usuario)Session["session"]);
 
             var query = from r in db.historial.Where(x => x.idUsuario.Equals(user.email))
-                        
-                        select new
-                        {                       
-                            r.cantMonedasCambiadas,
-                            r.saldoAnterior,
-                            Total = r.cantMonedasCambiadas + r.saldoAnterior                        
 
+                        select new
+                        {
+
+
+                            Total = r.cantMonedasCambiadas + r.saldoAnterior,
+                             r.saldoAnterior,
+                           r.cantMonedasCambiadas,
+                           r.fecha
                         };
 
 
 
-            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteEcomonedasGeneradas.rdlc");
+            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteCant.rdlc");
             return View();
         }
     }

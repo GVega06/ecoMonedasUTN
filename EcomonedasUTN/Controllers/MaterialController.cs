@@ -196,6 +196,36 @@ namespace EcomonedasUTN.Controllers
             return PartialView("_ListaCarrito");
         }
 
+
+
+        public ActionResult reporteMaterial()
+        {
+            Usuario user = ((Usuario)Session["session"]);
+
+            var query = from r in db.EncCambio.Where(x => x.idUsuario.Equals(user.email))
+                        join t in db.Usuario on r.idUsuario equals t.email
+                        join c in db.Centro on r.idCentro equals c.id
+                        join d in db.DetalleCambio on r.id equals d.idEncCambio
+                        join m in db.Material on d.idMaterial equals m.id
+                        select new
+                        {
+                           
+                            r.fecha,
+                            r.total,
+                            t.nombre,
+                            material = m.nombre,
+                            d.cantidad,
+                            d.subtotal,
+                            centro = c.nombre,
+
+                        };
+
+
+
+            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteMateriales.rdlc");
+            return View();
+        }
+
         public class Ajax
         {
             public string terminoBusqueda
