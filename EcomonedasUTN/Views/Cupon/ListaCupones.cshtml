@@ -31,7 +31,7 @@
     <div id="divCupon" class="row">
         @foreach (var item in Model)
         {
-            <div class="card bg-light mb-3" style="max-width: 20rem;margin-right:40px;margin-left:45px">
+            <div class="card bg-light mb-3" style="max-width: 20rem;margin-right:30px;margin-left:30px">
                 <div class="card-header" style="text-align:center">@item.nombre</div>
                 <img width="300" src="@Url.Action("getImage", "Cupon", new {id= item.id})">
                 <div class="card-body">

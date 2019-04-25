@@ -253,6 +253,20 @@ namespace EcomonedasUTN.Controllers
             ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteHistorial.rdlc");
             return View();
         }
+        public ActionResult getImage(int id)
+        {
+            Cupon material = db.Cupon.Find(id);
+            byte[] byteImage = material.imagen;
+
+            System.IO.MemoryStream memory = new MemoryStream(byteImage);
+            Image image = Image.FromStream(memory);
+
+            memory = new MemoryStream();
+            image.Save(memory, System.Drawing.Imaging.ImageFormat.Jpeg);
+            memory.Position = 0;
+            return File(memory, "image/jpg");
+        }
+
 
         public ActionResult reporteEcoMonedasGeneradas()
         {

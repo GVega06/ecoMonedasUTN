@@ -37,7 +37,8 @@ namespace EcomonedasUTN.Controllers
                 db.SaveChanges();
             }
 
-
+            ViewBag.TotalC = 0;
+            ViewBag.Canje = 0;
             double canje = 0;
             double totalCanjes = 0;
             foreach (var item in h)

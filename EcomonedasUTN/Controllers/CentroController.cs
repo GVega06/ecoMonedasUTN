@@ -60,7 +60,16 @@ namespace EcomonedasUTN.Controllers
         {
 
             var lista = db.Centro.Where(x => x.idUsuario.Equals(email));
-            return true;
+
+            foreach (var item in lista)
+            {
+
+                if (item.idUsuario.Equals(email))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         // GET: Centro/Create

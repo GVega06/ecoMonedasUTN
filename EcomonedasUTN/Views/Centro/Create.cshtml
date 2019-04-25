@@ -59,6 +59,17 @@
                htmlAttributes: new { @class = "form-control", required = "required" })
                 @Html.ValidationMessageFor(model => model.idUsuario, "", new { @class = "text-danger" })
             </div>
+            <div class="container">
+                @if (ViewBag.mensajeCentroEdita != "" && ViewBag.mensajeCentroEdita != null)
+                {
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>@ViewBag.mensajeCentroEdita</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+            </div>
         </div>
 
         <div class="form-group">
@@ -69,3 +80,4 @@
         </div>
     </div>
 }
+  
