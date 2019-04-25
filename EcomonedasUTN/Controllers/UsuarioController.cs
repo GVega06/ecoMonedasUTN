@@ -80,7 +80,7 @@ namespace EcomonedasUTN.Controllers
                         db.Usuario.Add(usuario);
                         db.SaveChanges();
                         Session["session"] = usuario;
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index","Inicio");
                     }
                     else
                     {
@@ -102,7 +102,7 @@ namespace EcomonedasUTN.Controllers
                 ViewBag.Mensaje1 = TempData["mensajes"].ToString();
             }
             ViewBag.Provincia = cargarProvinciasDropDownList();
-            return View(usuario);
+            return View("TodoPublico","Inicio",usuario);
         }
 
         // GET: Usuario/Edit/5
@@ -276,13 +276,15 @@ namespace EcomonedasUTN.Controllers
         public bool consulta(string id)
         {
             Models.Usuario usuario = db.Usuario.Find(id);
-
-            if (usuario.email.Equals(id))
-            {
-                return true;
+            if (usuario == null) {
+                return false;
+            }else {
+                if(usuario.email.Equals(id))
+                {
+                    return true;
+                }
+                return false;
             }
-
-            return false;
         }
 
         public ActionResult InicioSesion()

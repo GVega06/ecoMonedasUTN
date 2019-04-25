@@ -14,7 +14,7 @@
 <body>
     @using EcomonedasUTN.Models
     <nav class="navbar navbar-expand-lg navbar-light bg-info sticky-top" style="padding: 20px 40px 20px 40px;color: white !important">
-        <a class="navbar-brand"><i class="fa fa-leaf"></i> Ecomonedas</a>
+        <i class="fa fa-leaf"></i> @Html.ActionLink("Ecomonedas", "TodoPublico", "Inicio", new { }, htmlAttributes: new { @class = "navbar-brand", @style = "color:white" }) 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
