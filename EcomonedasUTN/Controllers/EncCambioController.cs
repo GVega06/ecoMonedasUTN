@@ -64,6 +64,7 @@ namespace EcomonedasUTN.Controllers
 
 
                                 ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteEstadistica.rdlc");
+
                                 return PartialView("_estadisticaEcoMoneda", query.ToList());
 
 
