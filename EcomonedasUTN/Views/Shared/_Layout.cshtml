@@ -70,6 +70,17 @@
 
                         </li>
                     }
+                    if (((Usuario)Session["session"]).idRol == 1 || ((Usuario)Session["session"]).idRol == 2)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white">
+                                Reportes
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Reporte de materiales canjeados por Centro de Acopio", "reporteEstadistica", "EncCambio", new { }, htmlAttributes: new { @class = "dropdown-item" })        
+                            </div>
+                        </li>
+                    }
                 }
             </ul>
             @if (((Usuario)Session["session"]) != null)
