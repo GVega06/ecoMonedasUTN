@@ -128,36 +128,6 @@ namespace EcomonedasUTN.Controllers
             return View(cupon);
         }
 
-        // GET: Cupon/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                //Respuesta al usuario
-                TempData["mensaje"] = "Especifique un cupón";
-                return RedirectToAction("Index");
-            }
-            Cupon cupon = db.Cupon.Find(id);
-            if (cupon == null)
-            {
-                TempData["mensaje"] = "No existe el cupón";
-                return RedirectToAction("Index");
-            }
-            return View(cupon);
-        }
-
-        // POST: Cupon/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Cupon cupon = db.Cupon.Find(id);
-            db.Cupon.Remove(cupon);
-            db.SaveChanges();
-            TempData["mensaje"] = "Cupón eliminado con éxito";
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -289,18 +259,20 @@ namespace EcomonedasUTN.Controllers
             Usuario user = ((Usuario)Session["session"]);
 
             var query = from r in db.historial.Where(x => x.idUsuario.Equals(user.email))
-                        
-                        select new
-                        {                       
-                            r.cantMonedasCambiadas,
-                            r.saldoAnterior,
-                            Total = r.cantMonedasCambiadas + r.saldoAnterior                        
 
+                        select new
+                        {
+
+
+                            Total = r.cantMonedasCambiadas + r.saldoAnterior,
+                             r.saldoAnterior,
+                           r.cantMonedasCambiadas,
+                           r.fecha
                         };
 
 
 
-            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteEcomonedasGeneradas.rdlc");
+            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteCant.rdlc");
             return View();
         }
     }

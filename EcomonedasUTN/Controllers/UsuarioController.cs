@@ -63,7 +63,7 @@ namespace EcomonedasUTN.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "email,nombre,clave,telefono,direccion")] Usuario usuario, string provincia, string repetirClave)
         {
-
+            BilleteraVirtual billetera = new BilleteraVirtual();
             usuario.direccion = provincia + " " + usuario.direccion;
             usuario.idRol = 3;
             usuario.estado = true;
@@ -74,6 +74,9 @@ namespace EcomonedasUTN.Controllers
                     if (!consulta(usuario.email))
                     {
 
+                        billetera.idUsuario = usuario.email;
+                        billetera.total = 0;
+                        db.BilleteraVirtual.Add(billetera);
                         db.Usuario.Add(usuario);
                         db.SaveChanges();
                         Session["session"] = usuario;
@@ -246,32 +249,7 @@ namespace EcomonedasUTN.Controllers
             return new SelectList(listado, "idRol", "descripcion", selected);
     }
 
-    // GET: Usuario/Delete/5
-    public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
-        }
-
-        // POST: Usuario/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Usuario usuario = db.Usuario.Find(id);
-            db.Usuario.Remove(usuario);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+     
         protected override void Dispose(bool disposing)
         {
             if (disposing)

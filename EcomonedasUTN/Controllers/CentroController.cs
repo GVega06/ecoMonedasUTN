@@ -180,37 +180,6 @@ namespace EcomonedasUTN.Controllers
             return View(centro);
         }
 
-        // GET: Centro/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                //Respuesta al usuario
-                TempData["mensaje"] = "Especifique un centro de acopio";
-                return RedirectToAction("Index");
-            }
-            Centro centro = db.Centro.Find(id);
-
-            if (centro == null)
-            {
-                TempData["mensaje"] = "No existe el centro de acopio";
-                return RedirectToAction("Index");
-            }
-            return View(centro);
-        }
-
-        // POST: Centro/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Centro centro = db.Centro.Find(id);
-            db.Centro.Remove(centro);
-            db.SaveChanges();
-            TempData["mensaje"] = "Centro de Acopio eliminado con éxito";
-            return RedirectToAction("Index");
-        }
-
 
         private SelectList cargarProvinciasDropDownList(object selected = null)
         {

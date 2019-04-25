@@ -2,11 +2,11 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Chart Name="Chart8">
+      <Chart Name="Chart1">
         <ChartCategoryHierarchy>
           <ChartMembers>
             <ChartMember>
-              <Group Name="Chart8_CategoryGroup">
+              <Group Name="Chart1_CategoryGroup">
                 <GroupExpressions>
                   <GroupExpression>=Fields!fecha.Value</GroupExpression>
                 </GroupExpressions>
@@ -16,7 +16,7 @@
                   <Value>=Fields!fecha.Value</Value>
                 </SortExpression>
               </SortExpressions>
-              <Label>=Fields!fecha.Value</Label>
+              <Label>=FormatDateTime(Fields!fecha.Value,DateFormat.ShortDate)</Label>
             </ChartMember>
           </ChartMembers>
         </ChartCategoryHierarchy>
@@ -27,6 +27,9 @@
             </ChartMember>
             <ChartMember>
               <Label>cant Monedas Cambiadas</Label>
+            </ChartMember>
+            <ChartMember>
+              <Label>Total</Label>
             </ChartMember>
           </ChartMembers>
         </ChartSeriesHierarchy>
@@ -41,7 +44,12 @@
                   <ChartDataLabel>
                     <Style />
                   </ChartDataLabel>
-                  <Style />
+                  <Style>
+                    <Border>
+                      <Width>2pt</Width>
+                    </Border>
+                    <Color>Red</Color>
+                  </Style>
                   <ChartMarker>
                     <Type>Auto</Type>
                     <Style />
@@ -61,6 +69,9 @@
                   <Style />
                 </ChartDataLabel>
               </ChartEmptyPoints>
+              <ChartItemInLegend>
+                <LegendText>Saldo Anterior</LegendText>
+              </ChartItemInLegend>
               <ValueAxisName>Primary</ValueAxisName>
               <CategoryAxisName>Primary</CategoryAxisName>
               <ChartSmartLabel>
@@ -77,7 +88,12 @@
                   <ChartDataLabel>
                     <Style />
                   </ChartDataLabel>
-                  <Style />
+                  <Style>
+                    <Border>
+                      <Width>2pt</Width>
+                    </Border>
+                    <Color>Blue</Color>
+                  </Style>
                   <ChartMarker>
                     <Type>Auto</Type>
                     <Style />
@@ -97,6 +113,54 @@
                   <Style />
                 </ChartDataLabel>
               </ChartEmptyPoints>
+              <ChartItemInLegend>
+                <LegendText>Cantidad Eco Monedas Canjeadas</LegendText>
+              </ChartItemInLegend>
+              <ValueAxisName>Primary</ValueAxisName>
+              <CategoryAxisName>Primary</CategoryAxisName>
+              <ChartSmartLabel>
+                <CalloutLineColor>Black</CalloutLineColor>
+                <MinMovingDistance>0pt</MinMovingDistance>
+              </ChartSmartLabel>
+            </ChartSeries>
+            <ChartSeries Name="Total">
+              <ChartDataPoints>
+                <ChartDataPoint>
+                  <ChartDataPointValues>
+                    <Y>=Sum(Fields!Total.Value)</Y>
+                  </ChartDataPointValues>
+                  <ChartDataLabel>
+                    <Style />
+                  </ChartDataLabel>
+                  <Style>
+                    <Border>
+                      <Color>SeaGreen</Color>
+                      <Width>2pt</Width>
+                    </Border>
+                    <Color>SeaGreen</Color>
+                  </Style>
+                  <ChartMarker>
+                    <Type>Auto</Type>
+                    <Style />
+                  </ChartMarker>
+                  <DataElementOutput>Output</DataElementOutput>
+                </ChartDataPoint>
+              </ChartDataPoints>
+              <Type>Line</Type>
+              <Subtype>Smooth</Subtype>
+              <Style />
+              <ChartEmptyPoints>
+                <Style />
+                <ChartMarker>
+                  <Style />
+                </ChartMarker>
+                <ChartDataLabel>
+                  <Style />
+                </ChartDataLabel>
+              </ChartEmptyPoints>
+              <ChartItemInLegend>
+                <LegendText>Total Eco Monedas Generadas</LegendText>
+              </ChartItemInLegend>
               <ValueAxisName>Primary</ValueAxisName>
               <CategoryAxisName>Primary</CategoryAxisName>
               <ChartSmartLabel>
@@ -189,7 +253,7 @@
                   <FontSize>8pt</FontSize>
                 </Style>
                 <ChartAxisTitle>
-                  <Caption>Axis Title</Caption>
+                  <Caption>Cantidad eco moneda</Caption>
                   <Style>
                     <FontSize>8pt</FontSize>
                   </Style>
@@ -257,6 +321,9 @@
               </ChartAxis>
             </ChartValueAxes>
             <Style>
+              <Border>
+                <Width>1.5pt</Width>
+              </Border>
               <BackgroundGradientType>None</BackgroundGradientType>
             </Style>
           </ChartArea>
@@ -281,7 +348,7 @@
         </ChartLegends>
         <ChartTitles>
           <ChartTitle Name="Default">
-            <Caption>Eco monedas generadas</Caption>
+            <Caption>Eco Monedas Generadas</Caption>
             <Style>
               <BackgroundGradientType>None</BackgroundGradientType>
               <FontWeight>Bold</FontWeight>
@@ -307,10 +374,10 @@
           </Style>
         </ChartNoDataMessage>
         <DataSetName>DataSet1</DataSetName>
-        <Top>0.45834cm</Top>
-        <Left>1.96003cm</Left>
-        <Height>8.175cm</Height>
-        <Width>14.78133cm</Width>
+        <Top>0.17639cm</Top>
+        <Left>0.1397cm</Left>
+        <Height>10.48076cm</Height>
+        <Width>19.52376cm</Width>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -321,56 +388,13 @@
         </Style>
       </Chart>
     </ReportItems>
-    <Height>3.72395in</Height>
+    <Height>4.3735in</Height>
     <Style />
   </Body>
-  <Width>7.34759in</Width>
+  <Width>7.91425in</Width>
   <Page>
-    <PageHeader>
-      <Height>1.35353cm</Height>
-      <PrintOnFirstPage>true</PrintOnFirstPage>
-      <PrintOnLastPage>true</PrintOnLastPage>
-      <ReportItems>
-        <Textbox Name="Textbox1">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>Historial de eco monedas generadas</Value>
-                  <Style>
-                    <FontSize>18pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Height>1.35353cm</Height>
-          <Width>18.66287cm</Width>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <BackgroundColor>LightGrey</BackgroundColor>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-      </ReportItems>
-      <Style>
-        <Border>
-          <Style>None</Style>
-        </Border>
-      </Style>
-    </PageHeader>
     <PageFooter>
-      <Height>1.16784cm</Height>
+      <Height>1.143cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -389,8 +413,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
-          <Top>0.26106cm</Top>
-          <Left>15.77705cm</Left>
+          <Top>0.1905cm</Top>
+          <Left>16.42263cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <Style>
@@ -424,8 +448,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox9</rd:DefaultName>
-          <Top>0.17639cm</Top>
-          <Left>0.53399cm</Left>
+          <Top>0.10583cm</Top>
+          <Left>1.17957cm</Left>
           <Height>0.68467cm</Height>
           <Width>3.44592cm</Width>
           <ZIndex>1</ZIndex>
@@ -462,7 +486,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>51ca649d-5895-4edc-a1e7-bbd1ed733c9d</rd:DataSourceID>
+      <rd:DataSourceID>fb79ea9c-6d6a-453b-ac9c-9376c48c73ce</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -472,6 +496,10 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
+        <Field Name="cantMonedasCambiadas">
+          <DataField>cantMonedasCambiadas</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
         <Field Name="saldoAnterior">
           <DataField>saldoAnterior</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
@@ -480,33 +508,21 @@
           <DataField>fecha</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="cantMonedasCambiadas">
-          <DataField>cantMonedasCambiadas</DataField>
+        <Field Name="Total">
+          <DataField>Total</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="nombre">
-          <DataField>nombre</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="valor">
-          <DataField>valor</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="usuario">
-          <DataField>usuario</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsEncCambio</rd:DataSetName>
         <rd:SchemaPath>C:\Users\gloriana\Desktop\ecoMonedasUTN\EcomonedasUTN\Reportes\dsEncCambio.xsd</rd:SchemaPath>
-        <rd:TableName>DataTable3</rd:TableName>
+        <rd:TableName>historial</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>DataTable3TableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>historialTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>5dc73ae9-aedc-494f-aa94-3888fc387b64</rd:ReportID>
+  <rd:ReportID>e1ea8409-899a-49db-a267-3cd2b5bfe68b</rd:ReportID>
 </Report>

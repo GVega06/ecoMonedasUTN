@@ -136,35 +136,6 @@ namespace EcomonedasUTN.Controllers
             return View(material);
         }
 
-        // GET: Material/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                //Respuesta al usuario
-                TempData["mensaje"] = "Especifique un material reciclable";
-                return RedirectToAction("Index");
-            }
-            Material material = db.Material.Find(id);
-            if (material == null)
-            {
-                TempData["mensaje"] = "No existe el material reciclable";
-                return RedirectToAction("Index");
-            }
-            return View(material);
-        }
-
-        // POST: Material/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Material material = db.Material.Find(id);
-            db.Material.Remove(material);
-            db.SaveChanges();
-            TempData["mensaje"] = "Material reciclable eliminado con éxito";
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {
@@ -223,6 +194,36 @@ namespace EcomonedasUTN.Controllers
         {
             Carrito.Instancia.SetItemCantidad(Convert.ToInt32(objeto.id), Convert.ToInt32(objeto.terminoBusqueda));
             return PartialView("_ListaCarrito");
+        }
+
+
+
+        public ActionResult reporteMaterial()
+        {
+            Usuario user = ((Usuario)Session["session"]);
+
+            var query = from r in db.EncCambio.Where(x => x.idUsuario.Equals(user.email))
+                        join t in db.Usuario on r.idUsuario equals t.email
+                        join c in db.Centro on r.idCentro equals c.id
+                        join d in db.DetalleCambio on r.id equals d.idEncCambio
+                        join m in db.Material on d.idMaterial equals m.id
+                        select new
+                        {
+                           
+                            r.fecha,
+                            r.total,
+                            t.nombre,
+                            material = m.nombre,
+                            d.cantidad,
+                            d.subtotal,
+                            centro = c.nombre,
+
+                        };
+
+
+
+            ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteMateriales.rdlc");
+            return View();
         }
 
         public class Ajax

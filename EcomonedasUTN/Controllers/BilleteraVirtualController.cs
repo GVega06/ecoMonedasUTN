@@ -42,9 +42,9 @@ namespace EcomonedasUTN.Controllers
             double totalCanjes = 0;
             foreach (var item in h)
             {
-                
-                totalCanjes = item.cantMonedasCambiadas + item.saldoAnterior;
                 canje += item.cantMonedasCambiadas;
+                totalCanjes = canje + item.saldoAnterior;
+            
                 ViewBag.TotalC = totalCanjes;
                 ViewBag.Canje = canje;
             }
