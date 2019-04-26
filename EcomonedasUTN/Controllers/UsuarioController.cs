@@ -105,6 +105,81 @@ namespace EcomonedasUTN.Controllers
             return View("TodoPublico","Inicio",usuario);
         }
 
+
+
+
+        public ActionResult CreateAdmCentro()
+        {
+            if (TempData.ContainsKey("mensajes"))
+            {
+                ViewBag.Mensaje1 = TempData["mensajes"].ToString();
+            }
+
+            ViewBag.Provincia = cargarProvinciasDropDownList();
+           
+            return View();
+        }
+
+        // POST: Usuario/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAdmCentro([Bind(Include = "email,nombre,clave,telefono,direccion")] Usuario usuario, string provincia, string repetirClave)
+        {
+            BilleteraVirtual billetera = new BilleteraVirtual();
+            usuario.direccion = provincia + " " + usuario.direccion;
+            usuario.idRol = 2;
+            usuario.estado = true;
+            if (ModelState.IsValid)
+            {
+                if (repetirClave.Equals(usuario.clave))
+                {
+
+                    if (!consulta(usuario.email))
+                    {
+
+                        billetera.idUsuario = usuario.email;
+                        billetera.total = 0;
+                        db.BilleteraVirtual.Add(billetera);
+                        db.Usuario.Add(usuario);
+                        db.SaveChanges();
+                        Session["session"] = usuario;
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["mensajes"] = "Usuario se encuentra registrado";
+                        repetirClave = "";
+                    }
+
+                }
+
+                else
+                {
+                    TempData["mensajes"] = "Las contraseñas no coinciden";
+                    repetirClave = "";
+                }
+            }
+
+            if (TempData.ContainsKey("mensajes"))
+            {
+                ViewBag.Mensaje1 = TempData["mensajes"].ToString();
+            }
+            ViewBag.Provincia = cargarProvinciasDropDownList();
+            return View("TodoPublico", "Inicio", usuario);
+        }
+
+
+
+
+
+
+
+
+
+
+
         // GET: Usuario/Edit/5
         public ActionResult Edit()
         {

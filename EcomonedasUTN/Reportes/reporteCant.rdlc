@@ -348,7 +348,7 @@
         </ChartLegends>
         <ChartTitles>
           <ChartTitle Name="Default">
-            <Caption>Eco Monedas Generadas</Caption>
+            <Caption />
             <Style>
               <BackgroundGradientType>None</BackgroundGradientType>
               <FontWeight>Bold</FontWeight>
@@ -437,7 +437,7 @@
                   <Value>Eco- monedas</Value>
                   <Style>
                     <FontStyle>Italic</FontStyle>
-                    <FontFamily>Footlight MT Light</FontFamily>
+                    <FontFamily>Franklin Gothic Heavy</FontFamily>
                     <FontSize>14pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                     <Color>#177625</Color>
@@ -451,7 +451,7 @@
           <Top>0.10583cm</Top>
           <Left>1.17957cm</Left>
           <Height>0.68467cm</Height>
-          <Width>3.44592cm</Width>
+          <Width>3.63642cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>

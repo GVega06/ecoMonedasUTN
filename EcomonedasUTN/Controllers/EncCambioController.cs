@@ -48,22 +48,22 @@ namespace EcomonedasUTN.Controllers
 
                             else
                             {
-                                var query = from r in db.EncCambio
-                                            join c in db.Centro on r.idCentro equals c.id
-                                            join u in db.Usuario on r.idUsuario equals u.email
-                                            where r.fecha >= anterior && r.fecha <= actual
+                                var query = from e in db.EncCambio
+                                            join c in db.Centro on e.idCentro equals c.id
+                                            join u in db.Usuario on e.idUsuario equals u.email
+                                            where e.fecha >= anterior && e.fecha <= actual
 
 
                                             select new
                                             {
-                                                r.fecha,
+                                                e.fecha,
                                                 c.nombre,
-                                                total = r.total,
+                                                total = e.total,
                                                 Usuario = u.nombre
                                             };
 
 
-                                ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteEstadistica.rdlc");
+                                ViewBag.ReportViewer = Reporte.reporte(query.ToList(), "", "reporteEst.rdlc");
 
                                 return PartialView("_estadisticaEcoMoneda", query.ToList());
 

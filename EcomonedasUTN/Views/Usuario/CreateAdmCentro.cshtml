@@ -1,0 +1,101 @@
+﻿@model EcomonedasUTN.Models.Usuario
+
+@{
+    ViewBag.Title = "Crear Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div style="width:50%;margin-left:auto;margin-right:auto">
+        <h2 style="margin-top:50px">Registrarse</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <h6 style="margin-left:20px">Correo Electrónico</h6>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h6 style="margin-left:20px">Nombre Completo</h6>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h6 style="margin-left:20px">Contraseña</h6>
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.clave, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <h6 style="margin-left:20px">Repetir Contraseña</h6>
+            <div class="col-md-10">
+                @Html.Password("repetirClave", "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <h6 style="margin-left:20px">Teléfono</h6>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h6 style="margin-left:20px">Provincia</h6>
+            <div class="col-md-10">
+                @Html.DropDownList("provincia",
+               (SelectList)ViewBag.Provincia,
+               "-Seleccione una provincia-",
+               htmlAttributes: new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <h6 style="margin-left:20px">Dirección</h6>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Registrarse" class="btn btn-info btn-block" />
+                @Html.ActionLink("Regresar a la lista", "Index", "Usuario", new { }, new { @class = "btn btn-info btn-block" }) 
+          
+
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @if (ViewBag.Mensaje1 != "" && ViewBag.Mensaje1 != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>@ViewBag.Mensaje1</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+</div>

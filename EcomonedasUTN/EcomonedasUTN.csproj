@@ -260,6 +260,9 @@
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\dsEncCambio.cs">
+      <DependentUpon>dsEncCambio.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\dsEncCambio.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -310,6 +313,7 @@
     <Content Include="Views\Cupon\reporteHistorial.cshtml" />
     <Content Include="Views\Cupon\reporteEcoMonedasGeneradas.cshtml" />
     <Content Include="Views\Material\reporteMaterial.cshtml" />
+    <Content Include="Views\Usuario\CreateAdmCentro.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -329,7 +333,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Reportes\CuponCanje.rdlc" />
     <EmbeddedResource Include="Reportes\reporteCant.rdlc" />
-    <EmbeddedResource Include="Reportes\reporteEstadistica.rdlc" />
+    <EmbeddedResource Include="Reportes\reporteEst.rdlc" />
     <EmbeddedResource Include="Reportes\reporteHistorial.rdlc" />
     <EmbeddedResource Include="Reportes\reporteMateriales.rdlc" />
   </ItemGroup>

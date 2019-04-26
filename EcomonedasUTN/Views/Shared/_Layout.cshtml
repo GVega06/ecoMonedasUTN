@@ -39,16 +39,7 @@
                             </div>
 
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white">
-                                Reporte
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        
-                                @Html.ActionLink("Reporte Estadística de Eco Monedas por Centro de Acopio", "reporteEstadistica", "EncCambio", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:black" })
-                            </div>
-
-                        </li>
+                      
                     }
                 }
                 @Html.ActionLink("Materiales","ListaMateriales", "Material", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
@@ -59,16 +50,7 @@
                     if (((Usuario)Session["session"]).idRol == 2)
                     {
                         @Html.ActionLink("Orden", "Index", "Orden", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:white" })
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white">
-                                Reporte
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                @Html.ActionLink("Reporte Estadística de Eco Monedas por Centro de Acopio", "reporteEstadistica", "EncCambio", new { }, htmlAttributes: new { @class = "nav-link", @style = "color:black" })
-                            </div>
-
-                        </li>
+                        
                     }
                     if (((Usuario)Session["session"]).idRol == 1 || ((Usuario)Session["session"]).idRol == 2)
                     {

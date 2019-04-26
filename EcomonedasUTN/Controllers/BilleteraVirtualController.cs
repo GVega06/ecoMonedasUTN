@@ -26,6 +26,7 @@ namespace EcomonedasUTN.Controllers
                 if (item.idUsuario.Equals(user.email))
                 {
                     v = item;
+                    ViewBag.TotalC = v.total;
                 }
             }
             if(v == null)
@@ -37,7 +38,7 @@ namespace EcomonedasUTN.Controllers
                 db.SaveChanges();
             }
 
-            ViewBag.TotalC = 0;
+
             ViewBag.Canje = 0;
             double canje = 0;
             double totalCanjes = 0;
